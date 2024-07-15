@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="55dp"
+        android:background="@drawable/background_caixa_texto"
         android:ems="10"
         android:hint="Entre com o número do seu Cartão"
         android:inputType="number"
@@ -33,7 +34,7 @@
         android:textColor="@color/Preto_Textos"
         android:textColorHint="@color/Cinza_Escuro_Text_Box"
         android:textColorLink="@color/Preto_Textos"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/botao_continuar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +42,10 @@
 
     <Button
         android:id="@+id/cadastrar"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/Azul_Claro_Caixa_Texto_Botões"
+        android:onClick="abrirCadastro"
         android:text="Criar Conta"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
@@ -53,7 +55,7 @@
 
     <Button
         android:id="@+id/botao_continuar"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/Azul_Claro_Caixa_Texto_Botões"
@@ -93,12 +95,15 @@
         android:layout_marginStart="55dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/background_caixa_texto"
         android:ems="10"
-        android:hint="Telefone"
+        android:hint="Digite o número do seu celular"
         android:inputType="phone"
+        android:textAlignment="center"
         android:textColor="@color/Preto_Textos"
         android:textColorHint="@color/Cinza_Escuro_Text_Box"
         android:textColorLink="@color/Preto_Textos"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/numero_cartao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cadastrar"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/nome_empresa"
@@ -124,7 +129,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="180dp"
         android:text="Seja Bem-vindo ao"
-        android:textColor="#E3DEDE"
+        android:textColor="@color/Cinza_Escuro_Text_Box"
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
