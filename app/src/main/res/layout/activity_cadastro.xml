@@ -9,32 +9,30 @@
     tools:context=".activity.CadastroActivity">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F5F5">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-
+            android:orientation="vertical"
+            android:padding="24dp"
             android:background="@drawable/background_fundo_cadastro_arredondado"
             android:elevation="4dp"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_margin="16dp">
 
-            <!-- Nome Completo -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nome completo"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+        <!-- Nome Completo -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome completo"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/editCadastroNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -42,167 +40,162 @@
                 android:inputType="textPersonName"
                 android:padding="8dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
-            <!-- Email -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Email"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+        <!-- Email -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="josemaria@gmail.com"
-                android:inputType="textEmailAddress"
-                android:padding="8dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
-
-            <!-- Tipo de Cartão -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Tipo de cartão"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioEscolar"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editCadastroEmail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Escolar" />
+                    android:background="@android:color/transparent"
+                    android:hint="josemaria@gmail.com"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp" />
 
-                <RadioButton
-                    android:id="@+id/radioNormal"
-                    android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <!-- Tipo de Cartão -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo de cartão"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escolar"
+                android:id="@+id/radioEscolar" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal"
+                android:id="@+id/radioNormal" />
+        </RadioGroup>
+
+        <!-- Criar Senha -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Criar senha"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editCadastroSenha"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Normal" />
-            </RadioGroup>
+                    android:background="@android:color/transparent"
+                    android:hint="**********"
+                    android:inputType="textPassword"
+                    android:padding="8dp" />
 
-            <!-- Criar Senha -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Criar senha"
-                android:textColor="#000000"
-                android:textStyle="bold" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="**********"
-                android:inputType="textPassword"
-                android:padding="8dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="as senhas são iguais"
-                android:textColor="#4CAF50"
-                android:textSize="12sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
+        <!-- Confirmar Senha -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar senha"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <!-- Confirmar Senha -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Confirmar senha"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/editCadastroSenhaConfirmar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="**********"
+                    android:inputType="textPassword"
+                    android:padding="8dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="**********"
-                android:inputType="textPassword"
-                android:padding="8dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="as senhas são iguais"
-                android:textColor="#4CAF50"
-                android:textSize="12sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
-            <!-- Telefone -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Telefone"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+        <!-- Telefone -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefone"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="(11) 9 9999-9999"
-                android:inputType="phone"
+                <EditText
+                    android:id="@+id/editCadastroTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="(11) 9 9999-9999"
+                    android:inputType="phone"
+                    android:padding="8dp" /><!-- android:background="@drawable/edittext_background" ativar deixar as caizar com o ccontorno em azul-->
 
-                android:padding="8dp" />
+        <!-- Número do Cartão -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número do Cartão"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <!-- Número do Cartão -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Número do Cartão"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/editCadastroNumeroCartão"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="00.00.000000000-0"
+                    android:inputType="number"
+                    android:padding="8dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="00.00.000000000-0"
-                android:inputType="number"
-                android:padding="8dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
-
-            <!-- Botão Cadastrar -->
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="#2196F3"
-                android:text="Cadastrar"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-    </ScrollView>
+        <!-- Botão Cadastrar -->
+                <Button
+                    android:id="@+id/botao_cadastrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#2196F3"
+                    android:text="Cadastrar"
+                    android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
