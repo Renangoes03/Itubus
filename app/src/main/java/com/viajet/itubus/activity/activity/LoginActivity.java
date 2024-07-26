@@ -1,4 +1,4 @@
-package com.viajet.itubus.activity;
+package com.viajet.itubus.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
