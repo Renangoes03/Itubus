@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editCadastroNome"
+                android:id="@+id/editLoginNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editCadastroEmail"
+                    android:id="@+id/editLoginEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -105,7 +105,7 @@
             android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editCadastroSenha"
+                    android:id="@+id/editLoginSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
