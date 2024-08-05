@@ -14,6 +14,7 @@
         tools:targetApi="31">
         <activity
             android:name=".activity.activity.CadastroActivity"
+              android:theme="@style/AppThemeLogin"
             android:exported="false" />
         <activity
             android:name=".activity.activity.MainActivity"
@@ -22,6 +23,7 @@
             android:theme="@style/Theme.Itubus" />
         <activity
             android:name=".activity.activity.LoginActivity"
+            android:theme="@style/AppThemeLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
