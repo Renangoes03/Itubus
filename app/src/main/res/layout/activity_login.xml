@@ -98,7 +98,7 @@
         android:background="@drawable/background_caixa_texto"
         android:ems="10"
         android:hint="Digite o seu Email"
-        android:inputType="phone"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColor="@color/Preto_Textos"
         android:textColorHint="@color/Cinza_Escuro_Text_Box"
