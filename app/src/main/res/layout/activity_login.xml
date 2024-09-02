@@ -137,18 +137,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="21dp" />
 
-    <TextView
-        android:id="@+id/nome_empresa_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="200dp"
-        android:text="Itubus"
-        android:textColor="@color/Azul_Claro_Caixa_Texto_Botões"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_empresa" />
+        <TextView
+            android:id="@+id/nome_empresa_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="200dp"
+            android:text="Itubus"
+            android:textColor="@color/Azul_Claro_Caixa_Texto_Botões"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nome_empresa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

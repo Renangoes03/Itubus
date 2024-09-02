@@ -1,5 +1,8 @@
 package com.viajet.itubus.activity.fragment;
 
+
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +10,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.EditarPerfilActivity;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +30,12 @@ public class Perfil_Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private ProgressBar progressBarPerfil;
+    private CircleImageView imagePerfil;
+    private Button buttonEditarPerfil;
+    private GridView gridViagem;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +76,26 @@ public class Perfil_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+
+        //Configurações dos Componentes
+        gridViagem = view.findViewById(R.id.gridViagem);
+        progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
+        imagePerfil = view.findViewById(R.id.imagePerfil);
+        buttonEditarPerfil = view.findViewById(R.id.buttonEditarPerfil);
+
+
+
+
+        //Abre edição do perfil
+        buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Abre a tela de edição do perfil
+                Intent i = new Intent(getActivity(), EditarPerfilActivity.class);
+                startActivity(i);
+            }
+        });
+        return view;
     }
 }

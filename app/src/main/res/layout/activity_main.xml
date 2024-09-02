@@ -14,11 +14,12 @@
     <FrameLayout
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="6dp"
+        android:backgroundTint="#03A9F4"
+        android:layout_weight="0.5" /><!--Aqui edita a posição do bottom navigation view-->
     <include
         layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="125dp"/>
+        android:layout_height="80dp"/>
 
 </LinearLayout>

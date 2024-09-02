@@ -1,9 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
-
-    id("com.google.gms.google-services")
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -32,19 +30,24 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -53,7 +56,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -65,19 +67,24 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+
+    // Firebase dependencies
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation("com.google.firebase:firebase-analytics")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("com.google.firebase:firebase-analytics")
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    // Jetpack Compose testing dependencies
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-    //Menu dependência
-    implementation ("com.google.android.material:material:1.4.0")
 
+    // Custom libraries
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
+
