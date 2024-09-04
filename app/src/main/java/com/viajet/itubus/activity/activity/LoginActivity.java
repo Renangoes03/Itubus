@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,19 +24,20 @@ import com.viajet.itubus.activity.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText campoEmail, campoSenha;
+    private EditText campoNome, campoEmail, campoSenha, campoConfirmarSenha, campoNumeroCartao, campoTelefone;
     private Button botaoContinuar;
     private ProgressBar progressoLogin;
 
     private Usuario usuario;
     private FirebaseAuth autenticacao;
+    private String textoNumeroCartao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        // Configuração da transparência e ajuste para o Edge-to-Edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         inicializarComponentes();
         verificarUsuarioLogado();
 
-        // Fazer Login do usuário
+        // Configuração do botão de login
         progressoLogin.setVisibility(View.GONE);
         botaoContinuar.setOnClickListener(view -> {
             String textoEmail = campoEmail.getText().toString();
@@ -57,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                     usuario = new Usuario();
                     usuario.setEmail(textoEmail);
                     usuario.setSenha(textoSenha);
+                    usuario.setConfirmarSenha(textoSenha);
+                    usuario.setNome(textoEmail);
+                    usuario.setNumeroCartao(textoNumeroCartao);
                     validarLogin(usuario);
                 } else {
                     Toast.makeText(LoginActivity.this, "Preencha a senha!", Toast.LENGTH_SHORT).show();
@@ -101,8 +104,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void inicializarComponentes() {
+        campoNome = findViewById(R.id.editLoginNome); // Adicionado para campo de nome
         campoEmail = findViewById(R.id.editLoginEmail);
         campoSenha = findViewById(R.id.editLoginSenha);
+        campoConfirmarSenha = findViewById(R.id.editCadastroSenhaConfirmar); // Adicionado para campo de confirmação de senha
+        campoNumeroCartao = findViewById(R.id.editCadastroNumeroCartão); // Adicionado para campo de número de cartão
+        campoTelefone = findViewById(R.id.editCadastroTelefone); // Adicionado para campo de telefone
         progressoLogin = findViewById(R.id.progresso_login);
         botaoContinuar = findViewById(R.id.botao_continuar);
 

@@ -96,21 +96,22 @@
                 android:textStyle="bold"/>
 
             <RadioGroup
+                android:id="@+id/radioTipoCartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/radioEscolar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Escolar"
-                    android:id="@+id/radioEscolar"/>
+                    android:text="Escolar" />
 
                 <RadioButton
+                    android:id="@+id/radioNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Normal"
-                    android:id="@+id/radioNormal"/>
+                    android:text="Normal" />
             </RadioGroup>
 
             <!-- Criar Senha -->
@@ -191,8 +192,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="00.00.000000000-0"
-                android:inputType="number"
-                android:padding="8dp"/>
+                android:inputType="phone"
+                android:padding="8dp" />
 
             <View
                 android:layout_width="match_parent"
