@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.viajet.itubus.R;
 import com.viajet.itubus.activity.helper.ConfiguracaoFirebase;
+import com.viajet.itubus.activity.helper.UsuarioFirebase;
 import com.viajet.itubus.activity.model.Usuario;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -141,10 +142,13 @@ public class CadastroActivity extends AppCompatActivity {
                     try {
                         progressoCadastro.setVisibility(View.GONE);
 
-                        // Salvar dados no Firebase Realtime Database
-                        String idUsuario = task.getResult().getUser().getUid();
-                        usuario.setId(idUsuario);
-                        usuario.salvar();
+                        //Salvar dados no firebase
+                                String idUsuario = task.getResult().getUser().getUid();
+                                usuario.setId( idUsuario );
+                                usuario.salvar();
+
+                        // Salvar dados no profile do Firebase
+                        UsuarioFirebase.atualizarNomeUsuario(usuario.getNome());
 
                         Toast.makeText(CadastroActivity.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

@@ -81,7 +81,7 @@ public class Perfil_Fragment extends Fragment {
         //Configurações dos Componentes
         gridViagem = view.findViewById(R.id.gridViagem);
         progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
-        imagePerfil = view.findViewById(R.id.imagePerfil);
+        imagePerfil = view.findViewById(R.id.imageEditarPerfil);
         buttonEditarPerfil = view.findViewById(R.id.buttonEditarPerfil);
 
 
