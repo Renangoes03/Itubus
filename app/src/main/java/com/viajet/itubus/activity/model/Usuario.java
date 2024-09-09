@@ -4,6 +4,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.viajet.itubus.activity.helper.ConfiguracaoFirebase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Usuario {
 
@@ -17,13 +20,36 @@ public class Usuario {
     private String numeroCartao;
     private String tipoCartao;
 
-      // Método para salvar o usuário no Firebase
-   public void salvar(){
+    // Método para salvar o usuário no Firebase
+    public void salvar() {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
-        DatabaseReference usuariosRef = firebaseRef.child("usuarios").child( getId() );
-        usuariosRef.setValue( this );
+        DatabaseReference usuariosRef = firebaseRef.child("usuarios").child(getId());
+        usuariosRef.setValue(this);
     }
 
+     // Método para atualizar o usuário no Firebase
+    public void atualizar() {
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference usuariosRef = firebaseRef.child("usuarios").child(getId());
+        Map<String, Object> valoresUsuario = converterParaMap();
+        usuariosRef.updateChildren(valoresUsuario);
+    }
+
+ // Método para converter os dados do usuário para um mapa
+    public Map<String, Object> converterParaMap() {
+        HashMap<String, Object> usuarioMap = new HashMap<>();
+        usuarioMap.put("email", getEmail());
+        usuarioMap.put("nome", getNome());
+        usuarioMap.put("telefone", getTelefone());
+        usuarioMap.put("numeroCartao", getNumeroCartao());
+        usuarioMap.put("tipoCartao", getTipoCartao());
+        usuarioMap.put("id", getId());
+        usuarioMap.put("caminhoFoto", getCaminhoFoto());
+        // Campos que não serão enviados ao Firebase, pois estão marcados com @Exclude
+        usuarioMap.put("senha", getSenha());
+        usuarioMap.put("confirmarSenha", getConfirmarSenha());
+        return usuarioMap;
+    }
     public String getEmail() {
         return email;
     }
