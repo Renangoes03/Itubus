@@ -88,6 +88,9 @@ dependencies {
     // Custom libraries
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    // FirebaseUI Storage only
+    implementation ("com.firebaseui:firebase-ui-storage:7.2.0")
+
 
 }
 

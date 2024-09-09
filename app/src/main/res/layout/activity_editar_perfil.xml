@@ -19,7 +19,7 @@
         android:padding="15dp">
         <!-- Profile Picture -->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageEditarPerfil"
+            android:id="@+id/imagemEditarPerfil"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginTop="-71dp"

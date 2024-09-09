@@ -28,11 +28,13 @@ public class ConfiguracaoFirebase {
         return referenciaAutenticacao;
     }
 
-    // Retorna a instância do FirebaseStorage
-    public static StorageReference getFirebaseStorage() {
-        if (storage == null) {
+ //Retorna instancia do FirebaseStorage
+    public static StorageReference getFirebaseStorage(){
+        if( storage == null ){
             storage = FirebaseStorage.getInstance().getReference();
         }
         return storage;
     }
+
 }
+
