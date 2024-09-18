@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Itubus"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.activity.MostrarFotoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.PerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.ToolbarActivity"
+            android:exported="false"
+            android:label="@string/title_activity_toolbar"
+            android:theme="@style/Theme.Itubus" />
         <activity
             android:name=".activity.activity.EditarPerfilActivity"
             android:exported="false"
-            android:parentActivityName=".activity.activity.MainActivity"/>
+            android:parentActivityName=".activity.activity.MainActivity" />
         <activity
             android:name=".activity.activity.CadastroActivity"
             android:exported="false"
@@ -29,7 +40,7 @@
         <activity
             android:name=".activity.activity.LoginActivity"
             android:exported="true"
-            android:theme="@style/AppThemeLogin" >
+            android:theme="@style/AppThemeLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

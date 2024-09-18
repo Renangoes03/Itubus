@@ -91,6 +91,9 @@ dependencies {
     // FirebaseUI Storage only
     implementation ("com.firebaseui:firebase-ui-storage:7.2.0")
 
+    implementation ("androidx.cardview:cardview:1.0.0")
+
+
 
 }
 

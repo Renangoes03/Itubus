@@ -3,6 +3,7 @@ package com.viajet.itubus.activity.fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,8 +15,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.viajet.itubus.R;
 import com.viajet.itubus.activity.activity.EditarPerfilActivity;
+import com.viajet.itubus.activity.helper.UsuarioFirebase;
+import com.viajet.itubus.activity.model.Usuario;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,7 +38,8 @@ public class Perfil_Fragment extends Fragment {
     private ProgressBar progressBarPerfil;
     private CircleImageView imagePerfil;
     private Button buttonEditarPerfil;
-    private GridView gridViagem;
+    private Usuario usuarioLogado;
+
 
 
     // TODO: Rename and change types of parameters
@@ -78,14 +83,20 @@ public class Perfil_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        //Configurações iniciais
+        usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
+
         //Configurações dos Componentes
-        gridViagem = view.findViewById(R.id.gridViagem);
-        progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
-        imagePerfil = view.findViewById(R.id.imagemEditarPerfil);
-        buttonEditarPerfil = view.findViewById(R.id.buttonEditarPerfil);
+        inicializarComponentes(view);
 
-
-
+         //Recuperar foto do usuário
+            String caminhoFoto = usuarioLogado.getCaminhoFoto();
+            if( caminhoFoto != null ){
+                Uri url = Uri.parse( caminhoFoto );
+                Glide.with(getActivity())
+                        .load( url )
+                        .into( imagePerfil );
+            }
 
         //Abre edição do perfil
         buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
@@ -98,4 +109,11 @@ public class Perfil_Fragment extends Fragment {
         });
         return view;
     }
+    private void inicializarComponentes(View view) {
+        progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
+        imagePerfil = view.findViewById(R.id.imagemEditarPerfil);
+        buttonEditarPerfil = view.findViewById(R.id.buttonEditarPerfil);
+
+    }
+
 }

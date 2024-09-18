@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.viajet.itubus.activity.model.Usuario;
 
 public class UsuarioFirebase {
@@ -19,9 +21,11 @@ public class UsuarioFirebase {
     }
 
     public static String getIdentificadorUsuario() {
-        return getUsuarioAtual().getUid();
+        FirebaseUser usuario = getUsuarioAtual();
+        return (usuario != null) ? usuario.getUid() : null;
     }
-    // Atualiza o nome do usuário no perfil
+
+    // Atualiza o nome do usuário no perfil e no banco de dados
     public static void atualizarNomeUsuario(String nome) {
         FirebaseUser usuarioLogado = getUsuarioAtual();
 
@@ -35,38 +39,54 @@ public class UsuarioFirebase {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (!task.isSuccessful()) {
                         Log.d("Perfil", "Erro ao atualizar nome de perfil");
+                    } else {
+                        // Atualiza o nome no banco de dados
+                        atualizarNomeNoBancoDeDados(nome);
                     }
                 }
             });
         }
     }
-    public static void atualizarFotoUsuario(Uri url){
 
-        try {
-
-            //Usuario logado no App
-            FirebaseUser usuarioLogado = getUsuarioAtual();
-
-            //Configurar objeto para alteração do perfil
-            UserProfileChangeRequest profile = new UserProfileChangeRequest
-                    .Builder()
-                    .setPhotoUri( url )
-                    .build();
-            usuarioLogado.updateProfile( profile ).addOnCompleteListener(new OnCompleteListener<Void>() {
+    // Atualiza o nome do usuário no banco de dados Firebase
+    private static void atualizarNomeNoBancoDeDados(String nome) {
+        String userId = getIdentificadorUsuario();
+        if (userId != null) {
+            DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference("usuarios").child(userId).child("nome");
+            usuarioRef.setValue(nome).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if( !task.isSuccessful() ){
-                        Log.d("Perfil","Erro ao atualizar a foto de perfil." );
+                    if (task.isSuccessful()) {
+                        Log.d("Perfil", "Nome atualizado no banco de dados com sucesso");
+                    } else {
+                        Log.d("Perfil", "Erro ao atualizar o nome no banco de dados");
                     }
                 }
             });
-
-        }catch (Exception e){
-            e.printStackTrace();
         }
-
     }
 
+    // Atualiza a foto do usuário no perfil
+    public static void atualizarFotoUsuario(Uri url) {
+        FirebaseUser usuarioLogado = getUsuarioAtual();
+
+        if (usuarioLogado != null) {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setPhotoUri(url)
+                    .build();
+
+            usuarioLogado.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (!task.isSuccessful()) {
+                        Log.d("Perfil", "Erro ao atualizar a foto de perfil.");
+                    } else {
+                        Log.d("Perfil", "Foto de perfil atualizada com sucesso.");
+                    }
+                }
+            });
+        }
+    }
 
     // Recupera os dados do usuário logado
     public static Usuario getDadosUsuarioLogado() {
