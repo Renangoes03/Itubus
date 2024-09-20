@@ -72,6 +72,15 @@
             android:backgroundTint="#2196F3"
             android:text="Salvar Alteração" />
 
+        <ImageView
+            android:id="@+id/editPerfilFundo"
+            android:layout_width="27dp"
+            android:layout_height="30dp"
+            android:contentDescription="Ícone de Editar Perfil de Fundo"
+            android:src="@drawable/ic_brush"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="67dp" />
+
     </LinearLayout>
 
     <TextView

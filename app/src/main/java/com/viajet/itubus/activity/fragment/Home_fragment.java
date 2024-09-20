@@ -1,8 +1,10 @@
 package com.viajet.itubus.activity.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,48 +12,51 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.EditarPerfilActivity;
 import com.viajet.itubus.activity.activity.NotificacaoActivity;
+import com.viajet.itubus.activity.helper.UsuarioFirebase;
+import com.viajet.itubus.activity.model.Usuario;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link Home_fragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment responsável pela tela inicial do aplicativo.
  */
 public class Home_fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // Componentes do layout
+    private GridView gridViewViagens;
+    private ImageView notificacaoIcon;
+    private ImageView imagePerfil;
+    private TextView editNomePerfil;
 
-        private GridView gridViewViagens;
-         private ImageView notificacaoIcon;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Usuário logado
+    private Usuario usuarioLogado;
 
     public Home_fragment() {
-        // Required empty public constructor
+        // Construtor público vazio requerido
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Método estático para criar uma nova instância do fragment com argumentos.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Home_fragment.
+     * @param param1 Parâmetro 1.
+     * @param param2 Parâmetro 2.
+     * @return Nova instância de Home_fragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static Home_fragment newInstance(String param1, String param2) {
         Home_fragment fragment = new Home_fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("param1", param1);
+        args.putString("param2", param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,43 +65,126 @@ public class Home_fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // Recupera os parâmetros se necessário
+            String mParam1 = getArguments().getString("param1");
+            String mParam2 = getArguments().getString("param2");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // Infla o layout do fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Configurações dos Componentes
-        gridViewViagens = view.findViewById(R.id.gridViagem);
-        notificacaoIcon = view.findViewById(R.id.notificacao);
+        // Inicializa os componentes do layout
+        inicializarComponentes(view);
 
-   // Encontrar o ícone de notificação no layout
-        notificacaoIcon = view.findViewById(R.id.notificacao);
+        // Recupera dados do usuário logado
+        usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
 
-        // Definir o listener de clique para o ícone de notificação
-        notificacaoIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Ação ao clicar no ícone de notificação
-                abrirNotificacao();
-            }
-        });
+        // Configura foto do perfil
+        configurarFotoPerfil();
+
+        // Recupera nome do usuário do Firebase e atualiza o TextView
+        recuperarNomeUsuario();
+
+        // Configura os listeners dos ícones de notificação e perfil
+        configurarListeners();
 
         return view;
     }
 
-    // Método para abrir a notificação
-    private void abrirNotificacao() {
-        // Exemplo de ação: mostrar um Toast
-        Toast.makeText(getContext(), "Notificação clicada!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(getActivity(), NotificacaoActivity.class);
-                startActivity(i);
+    /**
+     * Inicializa os componentes do layout.
+     */
+    private void inicializarComponentes(View view) {
+        imagePerfil = view.findViewById(R.id.FotoPerfil);
+        editNomePerfil = view.findViewById(R.id.editNomePerfil);
+        notificacaoIcon = view.findViewById(R.id.notificacao);
+        gridViewViagens = view.findViewById(R.id.gridViagem);
+    }
 
-        // Aqui você pode adicionar a lógica para abrir uma nova Activity, Dialog, etc.
+    /**
+     * Configura a foto do perfil do usuário, se disponível.
+     */
+    private void configurarFotoPerfil() {
+        String caminhoFoto = usuarioLogado.getCaminhoFoto();
+        if (caminhoFoto != null) {
+            Uri url = Uri.parse(caminhoFoto);
+            Glide.with(getActivity())
+                    .load(url)
+                    .into(imagePerfil);
+        }
+    }
+
+    /**
+     * Recupera o nome do usuário do Firebase e atualiza o TextView correspondente.
+     */
+    private void recuperarNomeUsuario() {
+        if (usuarioLogado.getId() != null) {
+            DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
+                    .child("usuarios")
+                    .child(usuarioLogado.getId());
+
+            usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                        if (usuario != null) {
+                            // Atualiza o TextView com o nome do usuário
+                            editNomePerfil.setText("Olá, " + usuario.getNome() + "!");
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Usuário não encontrado.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Erro ao recuperar dados do usuário: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "ID do usuário inválido.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Configura os listeners para os ícones de notificação e perfil.
+     */
+    private void configurarListeners() {
+        notificacaoIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirNotificacao();
+            }
+        });
+
+        imagePerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirFotoPerfil();
+            }
+        });
+    }
+
+    /**
+     * Método para abrir a tela de notificações.
+     */
+    private void abrirNotificacao() {
+        Toast.makeText(getContext(), "Notificação clicada!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), NotificacaoActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Método para abrir a tela de edição de perfil.
+     */
+    private void abrirFotoPerfil() {
+        Toast.makeText(getContext(), "Editar Perfil", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
+        startActivity(intent);
     }
 }

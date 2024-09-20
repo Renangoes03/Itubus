@@ -13,19 +13,11 @@
         android:theme="@style/Theme.Itubus"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.BackgroundActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.NotificacaoActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.activity.MostrarFotoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.activity.PerfilActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.activity.ToolbarActivity"
-            android:exported="false"
-            android:label="@string/title_activity_toolbar"
-            android:theme="@style/Theme.Itubus" />
         <activity
             android:name=".activity.activity.EditarPerfilActivity"
             android:exported="false"

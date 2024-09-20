@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/PerfilFundo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.activity.MainActivity">
@@ -10,7 +11,46 @@
 
     <!-- Background Image -->
 
-   <include layout="@layout/activity_toolbar"/>
+    <RelativeLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/FotoPerfil"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Foto de perfil do usuário"
+            android:elevation="8dp"
+            android:src="@drawable/profile_picture" />
+
+        <TextView
+            android:id="@+id/editNomePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/FotoPerfil"
+            android:text="Olá, Saudações!"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/notificacao"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Ícone de notificação"
+            android:src="@drawable/ic_notification" />
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/background_image"
@@ -39,25 +79,20 @@
 
     <!-- Bottom Navigation Icons -->
 
-    <Button
-        android:id="@+id/buttonEditarPerfil"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignEnd="@id/imagemEditarPerfil"
-        android:layout_alignBottom="@id/imagemEditarPerfil"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/gray"
-        android:drawableLeft="@drawable/ic_brush"
-        android:elevation="4dp"
-        android:padding="8dp"
-        android:src="@drawable/background_botao_perfil"
-        app:layout_constraintBottom_toBottomOf="@id/imagemEditarPerfil"
-        app:layout_constraintEnd_toEndOf="@id/imagemEditarPerfil"
-        app:layout_constraintHorizontal_bias="0.946"
-        app:layout_constraintStart_toStartOf="@id/imagemEditarPerfil"
-        app:layout_constraintTop_toTopOf="@id/imagemEditarPerfil"
-        app:layout_constraintVertical_bias="0.806" />
+
+    <!-- Edit Icon -->
+
+    <!-- Edit Background Icon -->
+
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="Ícone de Edit"
+        android:src="@drawable/ic_brush"
+        tools:layout_editor_absoluteX="216dp"
+        tools:layout_editor_absoluteY="153dp" />
+
 
     <LinearLayout
         android:id="@+id/buttons_container"
@@ -132,5 +167,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/editPerfilFundo"
+        android:layout_width="27dp"
+        android:layout_height="30dp"
+        android:contentDescription="Ícone de Editar Perfil de Fundo"
+        android:src="@drawable/ic_brush"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="67dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

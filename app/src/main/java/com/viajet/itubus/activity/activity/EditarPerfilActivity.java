@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageRef;
     private String identificadorUsuario;
+    private ImageView editFundoIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
             Glide.with(EditarPerfilActivity.this)
                     .load(url)
                     .into(imagemEditarPerfil);
-        }else {
+        } else {
             imagemEditarPerfil.setImageResource(R.drawable.profile_picture);
         }
 
@@ -107,6 +109,15 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 startActivityForResult(i, SELECAO_GALERIA);
             }
         });
+
+        // Configurar listener para o ícone de edição do fundo
+        editFundoIcon.setOnClickListener(v -> abrirBackground());
+    }
+
+    private void abrirBackground() {
+        Toast.makeText(EditarPerfilActivity.this, "Editar Perfil de fundo", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EditarPerfilActivity.this, BackgroundActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -184,6 +195,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         editNomePerfil = findViewById(R.id.editNomePerfil);
         editEmailPerfil = findViewById(R.id.editEmailPerfil);
         buttonSalvarAlteracoes = findViewById(R.id.buttonSalvarAlteracoes);
+        editFundoIcon = findViewById(R.id.editPerfilFundo);
         editEmailPerfil.setFocusable(false);
     }
 

@@ -38,7 +38,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/FotoPerfil"
-        android:text="Olá, Samira!"
+        android:text="Olá, Saudações!"
         android:textColor="#000000"
         android:textSize="16sp" />
 
