@@ -1,5 +1,6 @@
 package com.viajet.itubus.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.NotificacaoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +28,7 @@ public class Home_fragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
         private GridView gridViewViagens;
+         private ImageView notificacaoIcon;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,8 +73,30 @@ public class Home_fragment extends Fragment {
 
         //Configurações dos Componentes
         gridViewViagens = view.findViewById(R.id.gridViagem);
+        notificacaoIcon = view.findViewById(R.id.notificacao);
+
+   // Encontrar o ícone de notificação no layout
+        notificacaoIcon = view.findViewById(R.id.notificacao);
+
+        // Definir o listener de clique para o ícone de notificação
+        notificacaoIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Ação ao clicar no ícone de notificação
+                abrirNotificacao();
+            }
+        });
+
         return view;
     }
+
+    // Método para abrir a notificação
+    private void abrirNotificacao() {
+        // Exemplo de ação: mostrar um Toast
+        Toast.makeText(getContext(), "Notificação clicada!", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity(), NotificacaoActivity.class);
+                startActivity(i);
+
+        // Aqui você pode adicionar a lógica para abrir uma nova Activity, Dialog, etc.
+    }
 }
-
-
