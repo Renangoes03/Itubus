@@ -54,6 +54,7 @@ public class Perfil_Fragment extends Fragment {
     private TextView editNomePerfil;
     private ImageView editIcon;
     private ImageView editFundoIcon;
+    private ImageView imageFundo;
 
 
 
@@ -99,33 +100,69 @@ public class Perfil_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-         //Configurações iniciais
+        //Configurações iniciais
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
 
         //Configurações dos Componentes
         inicializarComponentes(view);
 
-        // Configura foto do perfil
+         // Configura foto do perfil
         configurarFotoPerfil();
+
+        // Configura foto do perfil de fundo
+        configurarFotoPerfilFundo();
 
         // Recupera nome do usuário do Firebase e atualiza o TextView
         recuperarNomeUsuario();
 
-        // Configura listeners para ícones e ações
+        // Configura os listeners dos ícones de notificação e perfil
         configurarListeners();
+
+         //Recuperar foto do usuário
+            String caminhoFoto = usuarioLogado.getCaminhoFoto();
+            if( caminhoFoto != null ){
+                Uri url = Uri.parse( caminhoFoto );
+                Glide.with(getActivity())
+                        .load( url )
+                        .into( imagePerfil );
+            }
+
+        //Abre edição do perfil
+        editIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Abre a tela de edição do perfil
+                Intent i = new Intent(getActivity(), EditarPerfilActivity.class);
+                startActivity(i);
+            }
+
+        });
 
         return view;
     }
 
+    private void configurarFotoPerfilFundo() {
+        String caminhoFotoFundo = usuarioLogado.getCaminhoFoto();
+            if (caminhoFotoFundo != null) {
+                Uri url = Uri.parse(caminhoFotoFundo);
+                Glide.with(getActivity())
+                        .load(url)
+                        .into(imageFundo);
+            }
+
+        }
+
     private void inicializarComponentes(View view) {
         progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
         imagePerfil = view.findViewById(R.id.imagemEditarPerfil);
-        editFundoIcon = view.findViewById(R.id.editPerfilFundo);
         notificacaoIcon = view.findViewById(R.id.notificacao);
         editNomePerfil = view.findViewById(R.id.editNomePerfil);
         editIcon = view.findViewById(R.id.edit);
+        imageFundo = view.findViewById(R.id.imagemEditarPerfilFundo);
     }
-
+     /**
+     * Configura a foto do perfil do usuário, se disponível.
+     */
     private void configurarFotoPerfil() {
         String caminhoFoto = usuarioLogado.getCaminhoFoto();
         if (caminhoFoto != null) {
@@ -136,6 +173,9 @@ public class Perfil_Fragment extends Fragment {
         }
     }
 
+     /**
+     * Recupera o nome do usuário do Firebase e atualiza o TextView correspondente.
+     */
     private void recuperarNomeUsuario() {
         if (usuarioLogado.getId() != null) {
             DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
@@ -166,6 +206,9 @@ public class Perfil_Fragment extends Fragment {
         }
     }
 
+    /**
+     * Configura os listeners para os ícones de notificação e perfil.
+     */
     private void configurarListeners() {
         notificacaoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,36 +224,26 @@ public class Perfil_Fragment extends Fragment {
             }
         });
 
-        editFundoIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirBackground();
-            }
-        });
 
-        editIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                abrirFotoPerfil();
-            }
-        });
     }
 
+    /**
+     * Método para abrir a tela de notificações.
+     */
     private void abrirNotificacao() {
         Toast.makeText(getContext(), "Notificações!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), NotificacaoActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Método para abrir a tela de edição de perfil.
+     */
     private void abrirFotoPerfil() {
         Toast.makeText(getContext(), "Editar Perfil", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
         startActivity(intent);
     }
 
-    private void abrirBackground() {
-        Toast.makeText(getContext(), "Editar Perfil de fundo", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), BackgroundActivity.class);
-        startActivity(intent);
-    }
 }
+

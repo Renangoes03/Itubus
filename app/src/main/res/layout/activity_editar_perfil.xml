@@ -26,7 +26,7 @@
             android:src="@drawable/profile_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/background_image" />
+            app:layout_constraintTop_toBottomOf="@id/imagemEditarPerfilFundo" />
 
         <TextView
             android:id="@+id/textAlterarFoto"
@@ -72,14 +72,15 @@
             android:backgroundTint="#2196F3"
             android:text="Salvar Alteração" />
 
-        <ImageView
+        <Button
             android:id="@+id/editPerfilFundo"
-            android:layout_width="27dp"
-            android:layout_height="30dp"
-            android:contentDescription="Ícone de Editar Perfil de Fundo"
-            android:src="@drawable/ic_brush"
-            tools:layout_editor_absoluteX="7dp"
-            tools:layout_editor_absoluteY="67dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:text="Editar Perfil de fundo" />
+
+
+
 
     </LinearLayout>
 

@@ -37,11 +37,12 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private CircleImageView imagemEditarPerfil;
     private TextView editNomePerfil, editEmailPerfil, textAlterarFoto;
     private Button buttonSalvarAlteracoes;
+    private Button editPerfilFundo;
     private Usuario usuarioLogado;
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageRef;
     private String identificadorUsuario;
-    private ImageView editFundoIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         });
 
         // Configurar listener para o ícone de edição do fundo
-        editFundoIcon.setOnClickListener(v -> abrirBackground());
+        editPerfilFundo.setOnClickListener(v -> abrirBackground());
     }
 
     private void abrirBackground() {
@@ -142,7 +143,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
                         StorageReference imagemRef = storageRef
                                 .child("imagens")
                                 .child("perfil")
-                                .child(identificadorUsuario + ".jpeg");
+                                 .child("perfil_fundo")
+                                .child(identificadorUsuario + "_Perfil.jpeg");
 
                         UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -195,7 +197,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         editNomePerfil = findViewById(R.id.editNomePerfil);
         editEmailPerfil = findViewById(R.id.editEmailPerfil);
         buttonSalvarAlteracoes = findViewById(R.id.buttonSalvarAlteracoes);
-        editFundoIcon = findViewById(R.id.editPerfilFundo);
+        editPerfilFundo = findViewById(R.id.editPerfilFundo);
         editEmailPerfil.setFocusable(false);
     }
 

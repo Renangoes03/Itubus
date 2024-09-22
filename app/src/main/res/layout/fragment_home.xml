@@ -12,8 +12,8 @@
 
     <!-- Card Information Section -->
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/appBar"
+    <RelativeLayout
+        android:id="@+id/appBar"
     android:layout_width="match_parent"
     android:layout_height="67dp"
     android:layout_marginTop="24dp"
@@ -21,15 +21,15 @@
     android:elevation="4dp"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/FotoPerfil"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:elevation="8dp"
-        android:src="@drawable/profile_picture"
-        android:contentDescription="Foto de perfil do usuário" />
+        <ImageView
+            android:id="@+id/FotoPerfil"
+            android:layout_width="37dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Foto de perfil do usuário"
+            android:elevation="8dp"
+            android:src="@drawable/profile_picture" />
 
     <TextView
         android:id="@+id/editNomePerfil"

@@ -88,6 +88,28 @@ public class UsuarioFirebase {
         }
     }
 
+    // Atualiza a foto de fundo do usuário
+    public static void atualizarFotoUsuarioFundo(Uri url) {
+        FirebaseUser usuarioLogado = getUsuarioAtual();
+
+        if (usuarioLogado != null) {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setPhotoUri(url)
+                    .build();
+
+            usuarioLogado.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("Perfil de Fundo", "Foto de fundo atualizada no banco de dados com sucesso.");
+                    } else {
+                        Log.d("Perfil de Fundo", "Erro ao atualizar a foto de fundo no banco de dados.");
+                    }
+                }
+            });
+        }
+    }
+
     // Recupera os dados do usuário logado
     public static Usuario getDadosUsuarioLogado() {
         FirebaseUser firebaseUser = getUsuarioAtual();
@@ -101,6 +123,7 @@ public class UsuarioFirebase {
         usuario.setNome(firebaseUser.getDisplayName());
         usuario.setEmail(firebaseUser.getEmail());
         usuario.setCaminhoFoto(firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : "");
+        usuario.setCaminhoFotoFundo(firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : "");
 
         return usuario;
     }

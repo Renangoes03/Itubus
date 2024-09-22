@@ -15,6 +15,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String caminhoFoto;
+    private String caminhoFotoFundo;
     private String confirmarSenha;
     private String telefone;
     private String numeroCartao;
@@ -45,6 +46,7 @@ public class Usuario {
         usuarioMap.put("tipoCartao", getTipoCartao());
         usuarioMap.put("id", getId());
         usuarioMap.put("caminhoFoto", getCaminhoFoto());
+        usuarioMap.put("caminhoFotoFundo", getCaminhoFoto());
         // Campos que não serão enviados ao Firebase, pois estão marcados com @Exclude
         usuarioMap.put("senha", getSenha());
         usuarioMap.put("confirmarSenha", getConfirmarSenha());
@@ -80,6 +82,12 @@ public class Usuario {
 
     public void setCaminhoFoto(String caminhoFoto) {
         this.caminhoFoto = caminhoFoto;
+    }
+    public String getCaminhoFotoFundo() {
+        return caminhoFotoFundo;
+    }
+    public void setCaminhoFotoFundo(String caminhoFotoFundo) {
+        this.caminhoFotoFundo = caminhoFotoFundo;
     }
 
     @Exclude // Excluir este campo da serialização para o Firebase
