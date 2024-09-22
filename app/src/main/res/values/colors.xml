@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Azul_Claro_Caixa_Texto_Botões">#1577EA</color>
+    <color name="Cinza_Escuro_Text_Box">#3F3D56</color>
+    <color name="Preto_Textos">#191919</color>
+
+    <!-- Cores do aplicativo -->
+    <color name="ColorPrimary">#2196F3</color>
+    <color name="ColorBackground">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#CCCCCC</color>
+    <color name="green">#00FF00</color>
+    <color name="azul_Login">#2196F3</color>
+</resources>

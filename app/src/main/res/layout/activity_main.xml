@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ColorBackground"
+    tools:context=".activity.activity.MainActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:backgroundTint="#03A9F4"
+        android:layout_weight="0.5" /><!--Aqui edita a posição do bottom navigation view-->
+    <include
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
+
+</LinearLayout>

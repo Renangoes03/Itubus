@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:shape="rectangle"><!--Esse android shape é para escolher uma cor grandiente -->
+    <gradient android:startColor="#367CDD"
+        android:endColor="#0B53B8"
+        android:angle="135"
+        > <!--O endColor é para escolher outra cor para iniciar a graduação das cores escolhidas -->  <!--android:angle="" é para escolher o angulo do degrade-->
+    </gradient>
+</shape>

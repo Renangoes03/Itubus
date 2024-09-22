@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activity.activity.MainActivity">
+
+    <!-- Profile Section -->
+
+    <!-- Card Information Section -->
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="67dp"
+    android:layout_marginTop="24dp"
+    android:background="#FFFFFF"
+    android:elevation="4dp"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/FotoPerfil"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:elevation="8dp"
+        android:src="@drawable/profile_picture"
+        android:contentDescription="Foto de perfil do usuário" />
+
+    <TextView
+        android:id="@+id/editNomePerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/FotoPerfil"
+        android:text="Olá, Saudações!"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/notificacao"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_notification"
+        android:contentDescription="Ícone de notificação" />
+</RelativeLayout>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:id="@+id/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="218dp"
+            android:background="@color/Azul_Claro_Caixa_Texto_Botões"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="71dp"
+                android:layout_height="47dp"
+                android:text="Itu"
+                android:textColor="@color/ColorBackground"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/credit"
+                android:layout_width="100dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/location"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="97dp"
+                android:layout_marginEnd="263dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Crédito\nR$55,00"
+                android:textColor="@color/ColorBackground"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/id_number"
+                android:layout_width="273dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="54dp"
+                android:layout_marginEnd="68dp"
+                android:layout_marginBottom="86dp"
+                android:lineSpacingExtra="4dp"
+                android:text="58.22.00000498-7"
+                android:textAlignment="center"
+                android:textColor="@color/ColorBackground"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/more_options"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_more" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Add Another Card Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="?android:attr/windowBackgroundFallback"
+
+        android:src="@drawable/background_botao_adicionar"
+        android:text="Adicionar outro cartão"
+        android:textColor="?android:attr/colorForeground" />
+
+    <!-- Recent Trips Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Últimas viagens"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <GridView
+        android:id="@+id/gridViagem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

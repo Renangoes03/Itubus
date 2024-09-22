@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "754068098712",
+    "project_id": "itubus-84811",
+    "storage_bucket": "itubus-84811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754068098712:android:79c10d1a7ea090413c0aed",
+        "android_client_info": {
+          "package_name": "com.viajet.itubus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3GRsS1M543ST7KupPUWGw00RqCpmMqSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
