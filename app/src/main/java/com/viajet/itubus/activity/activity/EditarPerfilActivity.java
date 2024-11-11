@@ -143,7 +143,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
                         StorageReference imagemRef = storageRef
                                 .child("imagens")
                                 .child("perfil")
-                                 .child("perfil_fundo")
                                 .child(identificadorUsuario + "_Perfil.jpeg");
 
                         UploadTask uploadTask = imagemRef.putBytes(dadosImagem);

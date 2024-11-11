@@ -75,26 +75,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imagemEditarPerfilFundo" />
 
-    <!-- Edit Icon -->
-
-    <!-- Buttons Container -->
-
-    <!-- Bottom Navigation Icons -->
-
-
-    <!-- Edit Icon -->
-
-    <!-- Edit Background Icon -->
-
     <ImageView
         android:id="@+id/edit"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="Ícone de Edit"
         android:src="@drawable/ic_brush"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="153dp" />
-
+        tools:layout_editor_absoluteX="308dp"
+        tools:layout_editor_absoluteY="96dp" />
 
     <LinearLayout
         android:id="@+id/buttons_container"

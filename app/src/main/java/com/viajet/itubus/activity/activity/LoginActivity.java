@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Usuario usuario;
     private FirebaseAuth autenticacao;
-    private String textoNumeroCartao;
+    private String NumeroCartao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     usuario.setSenha(textoSenha);
                     usuario.setConfirmarSenha(textoSenha);
                     usuario.setNome(textoEmail);
-                    usuario.setNumeroCartao(textoNumeroCartao);
+                    usuario.setNumeroCartao(NumeroCartao);
                     validarLogin(usuario);
                 } else {
                     Toast.makeText(LoginActivity.this, "Preencha a senha!", Toast.LENGTH_SHORT).show();

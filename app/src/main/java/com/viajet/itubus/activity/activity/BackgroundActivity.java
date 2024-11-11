@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -116,7 +117,7 @@ public class BackgroundActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == SELECAO_GALERIA) {
+        if (resultCode == RESULT_OK && requestCode == SELECAO_GALERIA && data != null) {
             Uri localImagemSelecionada = data.getData();
             if (localImagemSelecionada != null) {
                 try {
@@ -144,6 +145,7 @@ public class BackgroundActivity extends AppCompatActivity {
         StorageReference imagemFundoRef = storageRef
                 .child("imagens")
                 .child("perfil_fundo")
+                .child("perfil")
                 .child(identificadorUsuario + "_fundo.jpeg");
 
         UploadTask uploadTask = imagemFundoRef.putBytes(dadosImagem);

@@ -1,7 +1,5 @@
 package com.viajet.itubus.activity.fragment;
 
-
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +27,7 @@ import com.viajet.itubus.R;
 import com.viajet.itubus.activity.activity.BackgroundActivity;
 import com.viajet.itubus.activity.activity.EditarPerfilActivity;
 import com.viajet.itubus.activity.activity.NotificacaoActivity;
+import com.viajet.itubus.activity.activity.RecargaActivity;
 import com.viajet.itubus.activity.helper.UsuarioFirebase;
 import com.viajet.itubus.activity.model.Usuario;
 
@@ -48,16 +47,14 @@ public class Perfil_Fragment extends Fragment {
 
     private ProgressBar progressBarPerfil;
     private CircleImageView imagePerfil;
-    private Button buttonEditarPerfil;
     private Usuario usuarioLogado;
     private ImageView notificacaoIcon;
     private TextView editNomePerfil;
     private ImageView editIcon;
-    private ImageView editFundoIcon;
     private ImageView imageFundo;
-
-
-
+    private TextView recarga;
+    private Button button_notificacao;
+    private Button button_recarga;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -141,16 +138,46 @@ public class Perfil_Fragment extends Fragment {
         return view;
     }
 
-    private void configurarFotoPerfilFundo() {
-        String caminhoFotoFundo = usuarioLogado.getCaminhoFoto();
-            if (caminhoFotoFundo != null) {
-                Uri url = Uri.parse(caminhoFotoFundo);
-                Glide.with(getActivity())
-                        .load(url)
-                        .into(imageFundo);
-            }
+  /**
+ * Configura a foto do perfil do usuário, se disponível.
+ */
+private void configurarFotoPerfil() {
+    String caminhoFoto = usuarioLogado.getCaminhoFoto();
 
-        }
+    if (caminhoFoto != null && !caminhoFoto.isEmpty()) {
+        // Carrega a foto do perfil usando o Glide
+        Uri url = Uri.parse(caminhoFoto);
+        Glide.with(getActivity())
+                .load(url)
+                .placeholder(R.drawable.profile_picture) // Caso a imagem demore a carregar, mostra a imagem padrão
+                .error(R.drawable.profile_picture) // Caso ocorra um erro no carregamento, mostra a imagem padrão
+                .into(imagePerfil);
+    } else {
+        // Se não houver foto de perfil, usa a imagem padrão
+        imagePerfil.setImageResource(R.drawable.profile_picture);
+    }
+}
+
+/**
+ * Configura a foto de fundo do perfil do usuário, se disponível.
+ */
+private void configurarFotoPerfilFundo() {
+    String caminhoFotoFundo = usuarioLogado.getCaminhoFoto();
+
+    if (caminhoFotoFundo != null && !caminhoFotoFundo.isEmpty()) {
+        // Carrega a foto de fundo do perfil usando o Glide
+        Uri url = Uri.parse(caminhoFotoFundo);
+        Glide.with(getActivity())
+                .load(url)
+                .placeholder(R.drawable.profile_picture) // Imagem padrão enquanto carrega
+                .error(R.drawable.profile_picture) // Imagem padrão em caso de erro
+                .into(imageFundo);
+    } else {
+        // Se não houver foto de fundo, usa a imagem padrão
+        imageFundo.setImageResource(R.drawable.logo);
+    }
+}
+
 
     private void inicializarComponentes(View view) {
         progressBarPerfil = view.findViewById(R.id.progressBarPerfil);
@@ -159,19 +186,14 @@ public class Perfil_Fragment extends Fragment {
         editNomePerfil = view.findViewById(R.id.editNomePerfil);
         editIcon = view.findViewById(R.id.edit);
         imageFundo = view.findViewById(R.id.imagemEditarPerfilFundo);
+       button_notificacao = view.findViewById(R.id.button_notificacao);
+       button_recarga = view.findViewById(R.id.button_recarga);
     }
-     /**
-     * Configura a foto do perfil do usuário, se disponível.
-     */
-    private void configurarFotoPerfil() {
-        String caminhoFoto = usuarioLogado.getCaminhoFoto();
-        if (caminhoFoto != null) {
-            Uri url = Uri.parse(caminhoFoto);
-            Glide.with(getActivity())
-                    .load(url)
-                    .into(imagePerfil);
-        }
-    }
+    /**
+ * Configura a foto do perfil do usuário, se disponível.
+ */
+
+
 
      /**
      * Recupera o nome do usuário do Firebase e atualiza o TextView correspondente.
@@ -224,7 +246,19 @@ public class Perfil_Fragment extends Fragment {
             }
         });
 
+        button_notificacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Notificacao();
+            }
+        });
 
+         button_recarga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirRecarga();
+            }
+        });
     }
 
     /**
@@ -242,6 +276,20 @@ public class Perfil_Fragment extends Fragment {
     private void abrirFotoPerfil() {
         Toast.makeText(getContext(), "Editar Perfil", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
+        startActivity(intent);
+    }
+        /**
+     * Método para abrir a tela de Recargaa.
+     */
+    private void abrirRecarga() {
+        Toast.makeText(getContext(), "Recarga", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), RecargaActivity.class);
+        startActivity(intent);
+    }
+
+       private void Notificacao() {
+        Toast.makeText(getContext(), "Editar Perfil", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), NotificacaoActivity.class);
         startActivity(intent);
     }
 

@@ -93,7 +93,7 @@ dependencies {
 
     implementation ("androidx.cardview:cardview:1.0.0")
 
-
-
+    //Import OneSignal
+    implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99")
 }
 

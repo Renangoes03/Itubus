@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F7F8FA"
+    tools:context=".activity.activity.RecargaActivity"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Toolbar com ícone de volta e título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Recarga"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Seção de seleção de data -->
+
+        <include layout="@layout/activity_calendario"/>
+        <!-- Informação de pagamento -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Informação do Pagamento"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:weightSum="4">
+
+            <!-- Ícones de pagamento -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pass"
+                android:contentDescription="Passe" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_card_buss"
+                android:contentDescription="Cartão" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_google_pay"
+                android:contentDescription="Google Pay" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_apple_pay"
+                android:contentDescription="Apple Pay" />
+        </LinearLayout>
+
+        <!-- Cartão de saldo -->
+        <include layout="@layout/background_card_onibus"/>
+
+        <!-- Seção de valor de recarga -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Valor da Recarga"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <EditText
+            android:background="@drawable/background_caixa_texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="R$ 50,00"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp" />
+
+        <!-- Seção de viagem disponível -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Viagem disponível"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <EditText
+            android:background="@drawable/background_caixa_texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quantidade: 10"
+            android:inputType="number"
+            android:layout_marginTop="8dp" />
+
+        <!-- Botão de recarga -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recarregar R$50,00"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#007BFF"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>

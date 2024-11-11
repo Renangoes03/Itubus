@@ -88,16 +88,12 @@ public class UsuarioFirebase {
         }
     }
 
-    // Atualiza a foto de fundo do usuário
+    // Atualiza a foto de fundo do usuário (caso seja diferente da foto de perfil)
     public static void atualizarFotoUsuarioFundo(Uri url) {
-        FirebaseUser usuarioLogado = getUsuarioAtual();
-
-        if (usuarioLogado != null) {
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setPhotoUri(url)
-                    .build();
-
-            usuarioLogado.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String userId = getIdentificadorUsuario();
+        if (userId != null) {
+            DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference("usuarios").child(userId).child("fotoFundo");
+            usuarioRef.setValue(url.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -124,6 +120,16 @@ public class UsuarioFirebase {
         usuario.setEmail(firebaseUser.getEmail());
         usuario.setCaminhoFoto(firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : "");
         usuario.setCaminhoFotoFundo(firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : "");
+
+        // Se a foto de fundo for diferente da de perfil, você pode buscar isso no banco de dados
+        DatabaseReference fotoFundoRef = FirebaseDatabase.getInstance().getReference("usuarios").child(usuario.getId()).child("fotoFundo");
+        fotoFundoRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().getValue() != null) {
+                usuario.setCaminhoFotoFundo(task.getResult().getValue().toString());
+            } else {
+                usuario.setCaminhoFotoFundo(usuario.getCaminhoFoto());
+            }
+        });
 
         return usuario;
     }

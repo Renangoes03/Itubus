@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.viajet.itubus.R;
 import com.viajet.itubus.activity.activity.EditarPerfilActivity;
+import com.viajet.itubus.activity.activity.MaskWatcher;
 import com.viajet.itubus.activity.activity.NotificacaoActivity;
 import com.viajet.itubus.activity.helper.UsuarioFirebase;
 import com.viajet.itubus.activity.model.Usuario;
@@ -37,6 +38,8 @@ public class Home_fragment extends Fragment {
     private ImageView notificacaoIcon;
     private ImageView imagePerfil;
     private TextView editNomePerfil;
+    private TextView credito;
+    private TextView NumeroCartao;
 
     // Usuário logado
     private Usuario usuarioLogado;
@@ -80,6 +83,9 @@ public class Home_fragment extends Fragment {
         // Inicializa os componentes do layout
         inicializarComponentes(view);
 
+          // Configura o TextWatcher para o campo de número do cartão com máscara
+    NumeroCartao.addTextChangedListener(new MaskWatcher("##.##.########-#"));
+
         // Recupera dados do usuário logado
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
 
@@ -92,6 +98,9 @@ public class Home_fragment extends Fragment {
         // Configura os listeners dos ícones de notificação e perfil
         configurarListeners();
 
+        // Configura o número do cartão
+         numeroCartao(); // Chama o método aqui
+
         return view;
     }
 
@@ -103,20 +112,63 @@ public class Home_fragment extends Fragment {
         editNomePerfil = view.findViewById(R.id.editNomePerfil);
         notificacaoIcon = view.findViewById(R.id.notificacao);
         gridViewViagens = view.findViewById(R.id.gridViagem);
+        NumeroCartao = view.findViewById(R.id.NumeroCartao);
     }
 
     /**
-     * Configura a foto do perfil do usuário, se disponível.
-     */
-    private void configurarFotoPerfil() {
-        String caminhoFoto = usuarioLogado.getCaminhoFoto();
-        if (caminhoFoto != null) {
-            Uri url = Uri.parse(caminhoFoto);
-            Glide.with(getActivity())
-                    .load(url)
-                    .into(imagePerfil);
-        }
+ * Configura a foto do perfil do usuário, se disponível.
+ */
+private void configurarFotoPerfil() {
+    String caminhoFoto = usuarioLogado.getCaminhoFoto();
+
+    if (caminhoFoto != null && !caminhoFoto.isEmpty()) {
+        // Carrega a foto do perfil usando o Glide
+        Uri url = Uri.parse(caminhoFoto);
+        Glide.with(getActivity())
+                .load(url)
+                .placeholder(R.drawable.profile_picture) // Caso a imagem demore a carregar, mostra a imagem padrão
+                .error(R.drawable.profile_picture) // Caso ocorra um erro no carregamento, mostra a imagem padrão
+                .into(imagePerfil);
+    } else {
+        // Se não houver foto de perfil, usa a imagem padrão
+        imagePerfil.setImageResource(R.drawable.profile_picture);
     }
+}
+
+/**
+ * Método para configurar o número do cartão do usuário.
+ */
+public void numeroCartao() {
+    if (usuarioLogado.getId() != null) {
+        DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
+                .child("usuarios")
+                .child(usuarioLogado.getId());
+
+        usuarioRef.child("numeroCartao").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String numero = dataSnapshot.getValue(String.class);
+                    if (numero != null && !numero.isEmpty()) {
+                        // Atualiza o TextView com o número do cartão
+                        NumeroCartao.setText("Número do Cartão: " + numero);
+                    } else {
+                        NumeroCartao.setText("Número do Cartão não disponível.");
+                    }
+                } else {
+                    NumeroCartao.setText("Usuário não encontrado.");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "Erro ao recuperar número do cartão: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    } else {
+        NumeroCartao.setText("ID do usuário inválido.");
+    }
+}
 
     /**
      * Recupera o nome do usuário do Firebase e atualiza o TextView correspondente.
