@@ -2,6 +2,7 @@ package com.viajet.itubus.activity.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ public class Home_fragment extends Fragment {
     private ImageView notificacaoIcon;
     private ImageView imagePerfil;
     private TextView editNomePerfil;
-    private TextView credito;
+    private TextView creditoValor;
     private TextView NumeroCartao;
 
     // Usuário logado
@@ -48,13 +51,6 @@ public class Home_fragment extends Fragment {
         // Construtor público vazio requerido
     }
 
-    /**
-     * Método estático para criar uma nova instância do fragment com argumentos.
-     *
-     * @param param1 Parâmetro 1.
-     * @param param2 Parâmetro 2.
-     * @return Nova instância de Home_fragment.
-     */
     public static Home_fragment newInstance(String param1, String param2) {
         Home_fragment fragment = new Home_fragment();
         Bundle args = new Bundle();
@@ -67,112 +63,130 @@ public class Home_fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Configura a barra de status
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getActivity() != null) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.azul_Login));
+        }
+
         if (getArguments() != null) {
-            // Recupera os parâmetros se necessário
             String mParam1 = getArguments().getString("param1");
             String mParam2 = getArguments().getString("param2");
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Infla o layout do fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Inicializa os componentes do layout
         inicializarComponentes(view);
 
-          // Configura o TextWatcher para o campo de número do cartão com máscara
-    NumeroCartao.addTextChangedListener(new MaskWatcher("##.##.########-#"));
+        // Configura máscara para o número do cartão
+        NumeroCartao.addTextChangedListener(new MaskWatcher("##.##.########-#"));
 
         // Recupera dados do usuário logado
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
 
-        // Configura foto do perfil
+        // Configura a foto do perfil
         configurarFotoPerfil();
 
-        // Recupera nome do usuário do Firebase e atualiza o TextView
+        // Recupera nome do usuário
         recuperarNomeUsuario();
 
-        // Configura os listeners dos ícones de notificação e perfil
+        // Configura os listeners
         configurarListeners();
 
-        // Configura o número do cartão
-         numeroCartao(); // Chama o método aqui
+        // Recupera e exibe o número do cartão
+        numeroCartao();
+
+        // Recupera e exibe o valor do crédito
+        creditoValor();
 
         return view;
     }
 
-    /**
-     * Inicializa os componentes do layout.
-     */
     private void inicializarComponentes(View view) {
         imagePerfil = view.findViewById(R.id.FotoPerfil);
         editNomePerfil = view.findViewById(R.id.editNomePerfil);
         notificacaoIcon = view.findViewById(R.id.notificacao);
         gridViewViagens = view.findViewById(R.id.gridViagem);
         NumeroCartao = view.findViewById(R.id.NumeroCartao);
+        creditoValor = view.findViewById(R.id.creditoValor);
     }
 
-    /**
- * Configura a foto do perfil do usuário, se disponível.
- */
-private void configurarFotoPerfil() {
-    String caminhoFoto = usuarioLogado.getCaminhoFoto();
+    private void configurarFotoPerfil() {
+        String caminhoFoto = usuarioLogado.getCaminhoFoto();
 
-    if (caminhoFoto != null && !caminhoFoto.isEmpty()) {
-        // Carrega a foto do perfil usando o Glide
-        Uri url = Uri.parse(caminhoFoto);
-        Glide.with(getActivity())
-                .load(url)
-                .placeholder(R.drawable.profile_picture) // Caso a imagem demore a carregar, mostra a imagem padrão
-                .error(R.drawable.profile_picture) // Caso ocorra um erro no carregamento, mostra a imagem padrão
-                .into(imagePerfil);
-    } else {
-        // Se não houver foto de perfil, usa a imagem padrão
-        imagePerfil.setImageResource(R.drawable.profile_picture);
+        if (caminhoFoto != null && !caminhoFoto.isEmpty()) {
+            Uri url = Uri.parse(caminhoFoto);
+            Glide.with(requireActivity())
+                    .load(url)
+                    .placeholder(R.drawable.profile_picture)
+                    .error(R.drawable.profile_picture)
+                    .into(imagePerfil);
+        } else {
+            imagePerfil.setImageResource(R.drawable.profile_picture);
+        }
     }
-}
 
-/**
- * Método para configurar o número do cartão do usuário.
- */
-public void numeroCartao() {
-    if (usuarioLogado.getId() != null) {
-        DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
-                .child("usuarios")
-                .child(usuarioLogado.getId());
+    public void numeroCartao() {
+        if (usuarioLogado.getId() != null) {
+            DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
+                    .child("usuarios")
+                    .child(usuarioLogado.getId());
 
-        usuarioRef.child("numeroCartao").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+            usuarioRef.child("numeroCartao").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String numero = dataSnapshot.getValue(String.class);
                     if (numero != null && !numero.isEmpty()) {
-                        // Atualiza o TextView com o número do cartão
                         NumeroCartao.setText("Número do Cartão: " + numero);
                     } else {
                         NumeroCartao.setText("Número do Cartão não disponível.");
                     }
-                } else {
-                    NumeroCartao.setText("Usuário não encontrado.");
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Erro ao recuperar número do cartão: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    } else {
-        NumeroCartao.setText("ID do usuário inválido.");
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Erro ao recuperar número do cartão: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            NumeroCartao.setText("ID do usuário inválido.");
+        }
     }
-}
 
-    /**
-     * Recupera o nome do usuário do Firebase e atualiza o TextView correspondente.
-     */
+    public void creditoValor() {
+        if (usuarioLogado != null && usuarioLogado.getId() != null) {
+            DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
+                    .child("usuarios")
+                    .child(usuarioLogado.getId());
+
+            usuarioRef.child("creditoValor").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Double credito = dataSnapshot.getValue(Double.class);
+                    if (credito != null) {
+                        String creditoFormatado = String.format("R$ %.2f", credito);
+                        creditoValor.setText(creditoFormatado);
+                    } else {
+                        creditoValor.setText("R$ 0.00");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Erro ao recuperar crédito: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            creditoValor.setText("Usuário não autenticado.");
+        }
+    }
+
     private void recuperarNomeUsuario() {
         if (usuarioLogado.getId() != null) {
             DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference()
@@ -182,14 +196,9 @@ public void numeroCartao() {
             usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        if (usuario != null) {
-                            // Atualiza o TextView com o nome do usuário
-                            editNomePerfil.setText("Olá, " + usuario.getNome() + "!");
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Usuário não encontrado.", Toast.LENGTH_SHORT).show();
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                    if (usuario != null) {
+                        editNomePerfil.setText("Olá, " + usuario.getNome() + "!");
                     }
                 }
 
@@ -198,44 +207,20 @@ public void numeroCartao() {
                     Toast.makeText(getContext(), "Erro ao recuperar dados do usuário: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            Toast.makeText(getContext(), "ID do usuário inválido.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * Configura os listeners para os ícones de notificação e perfil.
-     */
     private void configurarListeners() {
-        notificacaoIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirNotificacao();
-            }
-        });
-
-        imagePerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirFotoPerfil();
-            }
-        });
+        notificacaoIcon.setOnClickListener(v -> abrirNotificacao());
+        imagePerfil.setOnClickListener(v -> abrirFotoPerfil());
     }
 
-    /**
-     * Método para abrir a tela de notificações.
-     */
     private void abrirNotificacao() {
-        Toast.makeText(getContext(), "Notificação clicada!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), NotificacaoActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * Método para abrir a tela de edição de perfil.
-     */
     private void abrirFotoPerfil() {
-        Toast.makeText(getContext(), "Editar Perfil", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
         startActivity(intent);
     }

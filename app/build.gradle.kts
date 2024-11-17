@@ -1,4 +1,6 @@
 plugins {
+    ("com.google.gms.google-services")
+
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
@@ -74,6 +76,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.dataconnect)
+    implementation(libs.datastore.core.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -94,6 +98,9 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
 
     //Import OneSignal
-    implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99")
+    implementation ("com.onesignal:OneSignal:4.8.4") // Verifique a versão mais recente
+
+    implementation ("com.google.firebase:firebase-messaging:23.0.7") // Verifique a versão mais recente
+
 }
 

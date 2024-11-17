@@ -56,6 +56,7 @@
 
             <!-- Ícones de pagamento -->
             <ImageView
+                android:id="@+id/Passagem"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -63,6 +64,7 @@
                 android:contentDescription="Passe" />
 
             <ImageView
+                android:id="@+id/Cartao"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -70,6 +72,7 @@
                 android:contentDescription="Cartão" />
 
             <ImageView
+                android:id="@+id/GooglePay"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -77,6 +80,7 @@
                 android:contentDescription="Google Pay" />
 
             <ImageView
+                android:id="@+id/ApplePay"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"

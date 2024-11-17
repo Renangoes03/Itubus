@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
+        android:name=".NotificacaoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Itubus"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.activity.ApplePayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.GooglePayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.RecargaCartaoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.RecargaPassagemActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.activity.CalendarioActivity"
             android:exported="false" />
