@@ -102,5 +102,10 @@ dependencies {
 
     implementation ("com.google.firebase:firebase-messaging:23.0.7") // Verifique a versão mais recente
 
+    //QR Code
+    implementation ("com.google.zxing:core:3.5.1")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
+
 }
 

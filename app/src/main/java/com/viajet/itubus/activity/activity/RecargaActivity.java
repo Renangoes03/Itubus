@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +28,10 @@ import com.viajet.itubus.R;
 import com.viajet.itubus.activity.helper.UsuarioFirebase;
 import com.viajet.itubus.activity.model.Usuario;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class RecargaActivity extends AppCompatActivity {
@@ -34,8 +39,17 @@ public class RecargaActivity extends AppCompatActivity {
     private TextView monthTextView, NumeroCartao, creditoValor;
     private Calendar calendar;
     private ImageView Passagem, Cartao, GooglePay, ApplePay;
+    private EditText etValorRecarga, etQuantidadeViagem;
+    private Button btnRecarregar;
+   // private TextView saldoAtualTextView;
+
+    private static final double PRECO_POR_VIAGEM = 5.15;
 
     private Usuario usuarioLogado;
+
+    private boolean isUpdatingValorRecarga = false;
+    private boolean isUpdatingQuantidadeViagem = false;
+    private double saldoAtual = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +90,12 @@ public class RecargaActivity extends AppCompatActivity {
         // Configurar listeners para os ícones
         configurarListeners();
 
+         configListeners();
+
         // Configurar número do cartão e crédito
         numeroCartao();
         creditoValor();
+        carregarSaldoAtual();
     }
 
     /**
@@ -92,7 +109,141 @@ public class RecargaActivity extends AppCompatActivity {
         Cartao = findViewById(R.id.Cartao);
         GooglePay = findViewById(R.id.GooglePay);
         ApplePay = findViewById(R.id.ApplePay);
+        etValorRecarga = findViewById(R.id.etValorRecarga);
+        etQuantidadeViagem = findViewById(R.id.etQuantidadeViagem);
+        btnRecarregar = findViewById(R.id.btnRecarregar);
     }
+
+        private void carregarSaldoAtual() {
+        usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
+        String userId = usuarioLogado.getId();
+
+        DatabaseReference saldoRef = FirebaseDatabase.getInstance().getReference("usuarios")
+                .child(userId).child("creditoValor");
+
+        saldoRef.get().addOnSuccessListener(dataSnapshot -> {
+            if (dataSnapshot.exists()) {
+                saldoAtual = dataSnapshot.getValue(Double.class);
+                atualizarSaldoUI();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Erro ao carregar saldo: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void realizarRecarga() {
+        String valorRecargaStr = etValorRecarga.getText().toString().replace("R$", "").trim();
+        String quantidadeViagemStr = etQuantidadeViagem.getText().toString();
+
+        if (!valorRecargaStr.isEmpty() && !quantidadeViagemStr.isEmpty()) {
+            try {
+                double valorRecarga = Double.parseDouble(valorRecargaStr);
+                int quantidadeViagem = Integer.parseInt(quantidadeViagemStr);
+                String userId = usuarioLogado.getId();
+
+                DatabaseReference saldoRef = FirebaseDatabase.getInstance().getReference("usuarios")
+                        .child(userId).child("creditoValor");
+
+                saldoAtual += valorRecarga;
+
+                saldoRef.setValue(saldoAtual).addOnSuccessListener(aVoid -> {
+                    atualizarSaldoUI();
+                    salvarRecargaHistorico(valorRecarga, quantidadeViagem);
+                    Toast.makeText(this, "Recarga efetuada com sucesso!", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(this, "Erro ao realizar recarga: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void salvarRecargaHistorico(double valor, int quantidade) {
+        String userId = usuarioLogado.getId();
+        DatabaseReference recargaRef = FirebaseDatabase.getInstance().getReference("usuarios")
+                .child(userId).child("recargas");
+
+        String recargaId = recargaRef.push().getKey();
+        if (recargaId != null) {
+            HashMap<String, Object> dadosRecarga = new HashMap<>();
+            dadosRecarga.put("valor", valor);
+            dadosRecarga.put("quantidadeViagem", quantidade);
+            dadosRecarga.put("data", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+
+            recargaRef.child(recargaId).setValue(dadosRecarga).addOnFailureListener(e ->
+                Toast.makeText(this, "Erro ao salvar recarga: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+    }
+
+        private void configListeners() {
+        etQuantidadeViagem.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdatingQuantidadeViagem) return;
+
+                isUpdatingValorRecarga = true;
+                if (!s.toString().isEmpty()) {
+                    try {
+                        int quantidade = Integer.parseInt(s.toString());
+                        double valorTotal = quantidade * PRECO_POR_VIAGEM;
+                        etValorRecarga.setText(String.format("R$ %.2f", valorTotal));
+                        btnRecarregar.setText(String.format("Recarregar R$%.2f", valorTotal));
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(RecargaActivity.this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (etValorRecarga.getText().toString().isEmpty()) {
+                    btnRecarregar.setText("Recarregar");
+                }
+                isUpdatingValorRecarga = false;
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
+
+        etValorRecarga.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdatingValorRecarga) return;
+
+                isUpdatingQuantidadeViagem = true;
+                if (!s.toString().isEmpty()) {
+                    String valorSemSimbolo = s.toString().replace("R$", "").replace(",", ".").trim();
+                    try {
+                        double valor = Double.parseDouble(valorSemSimbolo);
+                        int quantidade = (int) Math.floor(valor / PRECO_POR_VIAGEM);
+                        etQuantidadeViagem.setText(String.valueOf(quantidade));
+                        btnRecarregar.setText(String.format("Recarregar R$%.2f", valor));
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(RecargaActivity.this, "Valor inválido", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (etQuantidadeViagem.getText().toString().isEmpty()) {
+                    btnRecarregar.setText("Recarregar");
+                }
+                isUpdatingQuantidadeViagem = false;
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
+
+        btnRecarregar.setOnClickListener(v -> realizarRecarga());
+    }
+
+    private void atualizarSaldoUI() {
+        btnRecarregar.setText(String.format(Locale.getDefault(), "Saldo Atual: R$ %.2f", saldoAtual));
+    }
+
+
 
     /**
      * Configura os dias da semana no layout.
@@ -196,5 +347,4 @@ public class RecargaActivity extends AppCompatActivity {
             }
         });
     }
-
 }

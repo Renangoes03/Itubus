@@ -101,6 +101,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/etValorRecarga"
             android:background="@drawable/background_caixa_texto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,6 +119,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/etQuantidadeViagem"
             android:background="@drawable/background_caixa_texto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,6 +129,7 @@
 
         <!-- Botão de recarga -->
         <Button
+            android:id="@+id/btnRecarregar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recarregar R$50,00"
