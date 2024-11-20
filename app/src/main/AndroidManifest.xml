@@ -17,6 +17,10 @@
         android:theme="@style/Theme.Itubus"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.QRCodeActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity"/>
+        <activity
             android:name=".activity.activity.ApplePayActivity"
             android:exported="false" />
         <activity
@@ -24,10 +28,12 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity.RecargaCartaoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity"/>
         <activity
             android:name=".activity.activity.RecargaPassagemActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.activity.CalendarioActivity"/>
         <activity
             android:name=".activity.activity.CalendarioActivity"
             android:exported="false" />

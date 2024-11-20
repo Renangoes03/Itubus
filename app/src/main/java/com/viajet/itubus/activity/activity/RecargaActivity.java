@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class RecargaActivity extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.azul_Login));
     }
 
+
         // Configuração de padding para ajuste com as barras de sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -96,7 +98,22 @@ public class RecargaActivity extends AppCompatActivity {
         numeroCartao();
         creditoValor();
         carregarSaldoAtual();
+
+        //Voltar
+        //configurarToolbar();
+
     }
+       /** private void configurarToolbar() {
+        // Configura a Toolbar corretamente
+        Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
+        toolbar.setTitle("Passagem");
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_flecha_esquerda);
+        }
+    }*/
 
     /**
      * Inicializa os componentes do layout.
@@ -132,34 +149,56 @@ public class RecargaActivity extends AppCompatActivity {
     }
 
     private void realizarRecarga() {
-        String valorRecargaStr = etValorRecarga.getText().toString().replace("R$", "").trim();
-        String quantidadeViagemStr = etQuantidadeViagem.getText().toString();
+    String valorRecargaStr = etValorRecarga.getText().toString().replace("R$", "").trim();
+    String quantidadeViagemStr = etQuantidadeViagem.getText().toString().trim();
 
-        if (!valorRecargaStr.isEmpty() && !quantidadeViagemStr.isEmpty()) {
-            try {
-                double valorRecarga = Double.parseDouble(valorRecargaStr);
-                int quantidadeViagem = Integer.parseInt(quantidadeViagemStr);
-                String userId = usuarioLogado.getId();
+    final double[] valorRecarga = {0.0};
+    final int[] quantidadeViagem = {0};
 
-                DatabaseReference saldoRef = FirebaseDatabase.getInstance().getReference("usuarios")
-                        .child(userId).child("creditoValor");
-
-                saldoAtual += valorRecarga;
-
-                saldoRef.setValue(saldoAtual).addOnSuccessListener(aVoid -> {
-                    atualizarSaldoUI();
-                    salvarRecargaHistorico(valorRecarga, quantidadeViagem);
-                    Toast.makeText(this, "Recarga efetuada com sucesso!", Toast.LENGTH_SHORT).show();
-                }).addOnFailureListener(e -> {
-                    Toast.makeText(this, "Erro ao realizar recarga: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+    try {
+        // Tenta processar o campo de valor
+        if (!valorRecargaStr.isEmpty()) {
+            valorRecarga[0] = Double.parseDouble(valorRecargaStr.replace(",", "."));
         }
+
+        // Tenta processar o campo de quantidade
+        if (!quantidadeViagemStr.isEmpty()) {
+            quantidadeViagem[0] = Integer.parseInt(quantidadeViagemStr);
+        }
+
+        // Valida se pelo menos um campo foi preenchido
+        if (valorRecarga[0] == 0.0 && quantidadeViagem[0] == 0) {
+            Toast.makeText(this, "Preencha pelo menos um dos campos!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Completa os valores faltantes, caso necessário
+        if (valorRecarga[0] == 0.0) {
+            valorRecarga[0] = quantidadeViagem[0] * PRECO_POR_VIAGEM;
+        } else if (quantidadeViagem[0] == 0) {
+            quantidadeViagem[0] = (int) Math.floor(valorRecarga[0] / PRECO_POR_VIAGEM);
+        }
+
+        // Atualiza o saldo do usuário
+        String userId = usuarioLogado.getId();
+        DatabaseReference saldoRef = FirebaseDatabase.getInstance().getReference("usuarios")
+                .child(userId).child("creditoValor");
+
+        saldoAtual += valorRecarga[0];
+
+        saldoRef.setValue(saldoAtual).addOnSuccessListener(aVoid -> {
+            atualizarSaldoUI();
+            // Agora chamamos salvarRecargaHistorico aqui dentro da lambda
+            salvarRecargaHistorico(valorRecarga[0], quantidadeViagem[0]);
+            Toast.makeText(this, "Recarga efetuada com sucesso!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Erro ao realizar recarga: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+
+    } catch (NumberFormatException e) {
+        Toast.makeText(this, "Valor inválido! Verifique os campos.", Toast.LENGTH_SHORT).show();
     }
+}
 
     private void salvarRecargaHistorico(double valor, int quantidade) {
         String userId = usuarioLogado.getId();
