@@ -205,6 +205,7 @@ public class RecargaCartaoActivity extends AppCompatActivity {
             HashMap<String, Object> dadosRecarga = new HashMap<>();
             dadosRecarga.put("valor", valor);
             dadosRecarga.put("quantidadeViagem", quantidade);
+            dadosRecarga.put("horario", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
             dadosRecarga.put("data", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
 
             recargaRef.child(recargaId).setValue(dadosRecarga).addOnFailureListener(e ->

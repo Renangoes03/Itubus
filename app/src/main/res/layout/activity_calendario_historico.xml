@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#f9f9f9"
+    tools:context=".activity.activity.CalendarioHistoricoActivity">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/DiaSelecionado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data selecionada"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:padding="8dp"
+        android:background="#eaeaea"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Campo para Data -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/Data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="01/01/2024"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
+
+    <!-- Campo para Hora -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hora:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/Horario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="12:00"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
+
+    <!-- Campo para Valor -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/creditoValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R$ 10,00"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
+
+    <!-- Campo para Crédito -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crédito:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/Credito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R$ 50,00"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
+
+    <!-- Campo para Viagem -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Viagem:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/ViagemDisponivel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:text="3 viagens"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+</LinearLayout>

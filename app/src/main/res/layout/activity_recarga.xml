@@ -18,18 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="365dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Recarga"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:gravity="center_vertical"/>
 
         <!-- Seção de seleção de data -->
 
@@ -106,6 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="R$ 50,00"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
             android:inputType="numberDecimal"
             android:layout_marginTop="8dp" />
 
@@ -115,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Viagem disponível"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
@@ -123,7 +114,9 @@
             android:background="@drawable/background_caixa_texto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:hint="Quantidade: 10"
+            android:textColorHint="@color/gray"
             android:inputType="number"
             android:layout_marginTop="8dp" />
 

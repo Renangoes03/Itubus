@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -82,9 +84,17 @@ public class RecargaActivity extends AppCompatActivity {
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
 
         // Obter o calendário atual e configurar o mês na parte superior
-        calendar = Calendar.getInstance();
-        String currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("pt", "BR"));
-        monthTextView.setText(currentMonth);
+      // Configura o mês atual no TextView
+calendar = Calendar.getInstance();
+String currentMonth = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("pt", "BR"));
+
+// Converte a primeira letra para maiúscula
+if (currentMonth != null && !currentMonth.isEmpty()) {
+    currentMonth = currentMonth.substring(0, 1).toUpperCase() + currentMonth.substring(1);
+}
+
+monthTextView.setText(currentMonth);
+
 
         // Configurar os dias da semana
         configurarDiasSemana();
@@ -100,20 +110,17 @@ public class RecargaActivity extends AppCompatActivity {
         carregarSaldoAtual();
 
         //Voltar
-        //configurarToolbar();
+
+        configurarStatusBar();
 
     }
-       /** private void configurarToolbar() {
-        // Configura a Toolbar corretamente
-        Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
-        toolbar.setTitle("Passagem");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_flecha_esquerda);
+       private void configurarStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.azul_Login));
         }
-    }*/
+    }
 
     /**
      * Inicializa os componentes do layout.
@@ -210,6 +217,7 @@ public class RecargaActivity extends AppCompatActivity {
             HashMap<String, Object> dadosRecarga = new HashMap<>();
             dadosRecarga.put("valor", valor);
             dadosRecarga.put("quantidadeViagem", quantidade);
+            dadosRecarga.put("horario", new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date()));
             dadosRecarga.put("data", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
 
             recargaRef.child(recargaId).setValue(dadosRecarga).addOnFailureListener(e ->

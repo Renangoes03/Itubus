@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.viajet.itubus.R;
 import com.viajet.itubus.activity.activity.BackgroundActivity;
 import com.viajet.itubus.activity.activity.EditarPerfilActivity;
+import com.viajet.itubus.activity.activity.HistoricoActivity;
 import com.viajet.itubus.activity.activity.NotificacaoActivity;
 import com.viajet.itubus.activity.activity.RecargaActivity;
 import com.viajet.itubus.activity.helper.UsuarioFirebase;
@@ -55,6 +56,7 @@ public class Perfil_Fragment extends Fragment {
     private TextView recarga;
     private Button button_notificacao;
     private Button button_recarga;
+    private Button button_historico;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -188,6 +190,7 @@ private void configurarFotoPerfilFundo() {
         imageFundo = view.findViewById(R.id.imagemEditarPerfilFundo);
        button_notificacao = view.findViewById(R.id.button_notificacao);
        button_recarga = view.findViewById(R.id.button_recarga);
+       button_historico = view.findViewById(R.id.button_historico);
     }
     /**
  * Configura a foto do perfil do usuário, se disponível.
@@ -259,6 +262,10 @@ private void configurarFotoPerfilFundo() {
                 abrirRecarga();
             }
         });
+          button_historico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {abrirHistorico();}
+        });
     }
 
     /**
@@ -293,5 +300,14 @@ private void configurarFotoPerfilFundo() {
         startActivity(intent);
     }
 
+     /**
+     * Método para abrir a tela de Histórico.
+     */
+    private void abrirHistorico() {
+        Toast.makeText(getContext(), "Histórico", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), HistoricoActivity.class);
+        startActivity(intent);
+    }
 }
+
 

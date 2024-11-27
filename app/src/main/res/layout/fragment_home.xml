@@ -78,12 +78,12 @@
 
             <TextView
                 android:id="@+id/creditoValor"
-                android:layout_width="100dp"
-                android:layout_height="57dp"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/location"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="97dp"
-                android:layout_marginEnd="263dp"
+                android:layout_marginEnd="228dp"
                 android:lineSpacingExtra="4dp"
                 android:text="credito\nValor"
                 android:textColor="@color/ColorBackground"
