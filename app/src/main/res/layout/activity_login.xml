@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    tools:context=".activity.activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="215dp"
+        android:layout_height="155dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/editLoginEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/editLoginSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:background="@drawable/background_caixa_texto"
+        android:ems="10"
+        android:hint="Entre com a sua Senha"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/Preto_Textos"
+        android:textColorHint="@color/Cinza_Escuro_Text_Box"
+        android:textColorLink="@color/Preto_Textos"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/botao_continuar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLoginEmail" />
+
+    <Button
+        android:id="@+id/cadastrar"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/Azul_Claro_Caixa_Texto_Botões"
+        android:onClick="abrirCadastro"
+        android:text="Criar Conta"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/progresso_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Label_Cadastrar" />
+
+    <Button
+        android:id="@+id/botao_continuar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/Azul_Claro_Caixa_Texto_Botões"
+        android:radius="20dp"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textColor="#D1D6DC"
+        android:textColorLink="@color/Azul_Claro_Caixa_Texto_Botões"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/Label_Cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLoginSenha" />
+
+    <TextView
+        android:id="@+id/Label_Cadastrar"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="Cadastro"
+        android:textAlignment="center"
+        android:textColor="@color/Cinza_Escuro_Text_Box"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botao_continuar" />
+
+    <EditText
+        android:id="@+id/editLoginEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_caixa_texto"
+        android:ems="10"
+        android:hint="Digite o seu Email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColor="@color/Preto_Textos"
+        android:textColorHint="@color/Cinza_Escuro_Text_Box"
+        android:textColorLink="@color/Preto_Textos"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editLoginSenha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ProgressBar
+        android:id="@+id/progresso_login"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:indeterminateBehavior="repeat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cadastrar"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/nome_empresa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="180dp"
+        android:text="Seja Bem-vindo ao"
+        android:textColor="@color/Cinza_Escuro_Text_Box"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="21dp" />
+
+        <TextView
+            android:id="@+id/nome_empresa_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="200dp"
+            android:text="Itubus"
+            android:textColor="@color/Azul_Claro_Caixa_Texto_Botões"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nome_empresa" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

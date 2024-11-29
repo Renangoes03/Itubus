@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".NotificacaoApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Itubus"
+        tools:targetApi="31" >
+
+        <activity
+            android:name=".activity.activity.LocalizaoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.HistoricoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.CalendarioHistoricoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.QRCodeActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.ApplePayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.GooglePayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.RecargaCartaoActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.RecargaPassagemActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.CalendarioActivity" />
+        <activity
+            android:name=".activity.activity.CalendarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.RecargaActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.BackgroundActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.NotificacaoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.EditarPerfilActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.CadastroActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.LoginActivity"
+            android:theme="@style/AppThemeLogin" />
+        <activity
+            android:name=".activity.activity.MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Itubus" />
+        <activity
+            android:name=".activity.activity.LoginActivity"
+            android:exported="true"
+            android:theme="@style/AppThemeLogin" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

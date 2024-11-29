@@ -1,0 +1,21 @@
+<resources>
+    <color name="Azul_Claro_Caixa_Texto_Botões">#1577EA</color>
+    <color name="Cinza_Escuro_Text_Box">#3F3D56</color>
+    <color name="Preto_Textos">#191919</color>
+
+    <!-- Cores do aplicativo -->
+    <color name="ColorPrimary">#2196F3</color>
+    <color name="ColorBackground">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#CCCCCC</color>
+    <color name="green">#00FF00</color>
+    <color name="azul_Login">@color/Azul_Claro_Caixa_Texto_Botões</color> <!-- Azul para a barra de status -->
+    <color name="dark_blue">#1E88E5</color>
+<color name="medium_blue">#42A5F5</color>
+<color name="greens">#43A047</color>
+<color name="orange">#FB8C00</color>
+<color name="red">#E53935</color>
+<color name="light_gray">#F5F5F5</color>
+<color name="white">#FFFFFF</color>
+
+</resources>

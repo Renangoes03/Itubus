@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.fragment.Localizacao_Fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:translationY="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:translationX="25dp">
+
+            <!-- Icon and Title -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="11dp"
+                    android:layout_height="36dp"
+                    android:backgroundTint="#010102"
+                    android:text="Button" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_bus"
+                    android:translationX="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Localização do Ônibus - Linha 0747"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:translationX="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:translationX="7dp">
+
+                <Button
+                    android:id="@+id/acompanhar"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#2196F3"
+                    android:text="Acompanhar"
+                    android:translationX="4dp"
+                    android:translationY="10dp" />
+
+                <Button
+                    android:id="@+id/passagem"
+                    android:layout_width="143dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#2196F3"
+                    android:text="Passagem"
+                    android:translationX="31dp"
+                    android:translationY="10dp" />
+
+            </LinearLayout>
+
+            <!-- Origin and Destination -->
+
+            <!-- Price -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="344dp"
+            android:layout_height="62dp"
+            android:backgroundTint="#2196F3"
+            android:insetTop="4dp"
+            android:text="Pesquisar rotas"
+            android:textAllCaps="false"
+            android:typeface="normal"
+            app:icon="@drawable/ic_lupa"
+            app:rippleColor="#03A9F4"
+            app:strokeColor="#2196F3" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,63 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/light_gray"> <!-- Fundo do conteúdo do Card -->
+
+        <!-- Texto para a Data -->
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data: 01/01/2024"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Texto para o Horário -->
+        <TextView
+            android:id="@+id/txtHorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horário: 12:00"
+            android:textColor="@color/medium_blue"
+            android:textSize="14sp" />
+
+        <!-- Texto para o Valor -->
+        <TextView
+            android:id="@+id/txtValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor: R$ 10,00"
+            android:textColor="@color/green"
+            android:textSize="14sp" />
+
+        <!-- Texto para o Crédito Atual -->
+        <TextView
+            android:id="@+id/txtCredito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crédito Atual: R$ 50,00"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+        <!-- Texto para o número de Viagens -->
+        <TextView
+            android:id="@+id/txtViagens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viagens: 3"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,17 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/ColorBackground</item>
+    </style>
+
+    <!-- Theme para Login -->
+    <style name="AppThemeLogin" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Cor principal para elementos primários -->
+        <item name="colorPrimary">@color/Azul_Claro_Caixa_Texto_Botões</item>
+        <!-- Cor escura para a barra de status -->
+        <item name="colorPrimaryDark">@color/azul_Login</item>
+        <item name="android:statusBarColor">@color/azul_Login</item> <!-- Cor da barra de status -->
+    </style>
+</resources>

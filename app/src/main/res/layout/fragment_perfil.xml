@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/PerfilFundo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.activity.MainActivity">
+
+    <!-- AppBar -->
+
+    <!-- Background Image -->
+
+    <RelativeLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:padding="16dp">
+
+        <!--Depois só apagar de.hdodenhof.circleimageview.CircleImageView e voltar a usar
+        ImageView-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/FotoPerfil"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Foto de perfil do usuário"
+            android:elevation="8dp"
+            android:src="@drawable/profile_picture" />
+
+        <TextView
+            android:id="@+id/editNomePerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/FotoPerfil"
+            android:text="Olá, Saudações!"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/notificacao"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Ícone de notificação"
+            android:src="@drawable/ic_notification" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imagemEditarPerfilFundo"
+        android:layout_width="341dp"
+        android:layout_height="164dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar" />
+
+    <!-- Profile Picture -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagemEditarPerfil"
+        android:layout_width="134dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="-71dp"
+        android:src="@drawable/profile_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagemEditarPerfilFundo" />
+
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="Ícone de Edit"
+        android:src="@drawable/ic_brush"
+        tools:layout_editor_absoluteX="308dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="240dp"
+        android:layout_height="411dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagemEditarPerfil"
+        app:layout_constraintVertical_bias="0.326">
+
+        <Button
+            android:id="@+id/button_historico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Histórico"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_acessibilidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Acessibilidade"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_notificacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Notificação"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_favoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Favoritos"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_parada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Parada"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_recarga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:text="Recarga"
+            android:textColor="#FFFFFF" />
+
+        <ProgressBar
+            android:id="@+id/progressBarPerfil"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="206dp"
+            android:layout_height="41dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

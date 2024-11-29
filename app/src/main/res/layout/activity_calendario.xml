@@ -1,0 +1,292 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp">
+
+    <!-- Mês -->
+    <TextView
+        android:id="@+id/monthTextView"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/hedvig_letters_serif"
+        android:text="Mês"
+        android:textAlignment="center"
+        android:textColor="@color/Preto_Textos"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Dias da semana com barra de rolagem horizontal -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Bloco do dia - Dom -->
+            <LinearLayout
+                android:id="@+id/day1Layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/unselec_day"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!-- Dia da semana -->
+                <TextView
+                    android:id="@+id/day1TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
+                    android:text="Dom"
+                    android:textColor="@color/Preto_Textos"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Número do dia -->
+                <TextView
+                    android:id="@+id/day1NumberTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_background"
+                    android:padding="5dp"
+                    android:text="Dia"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <!-- Bloco do dia - Seg 1-->
+        <LinearLayout
+            android:id="@+id/day2Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/unselec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day2TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Seg"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day2NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+             <!-- Bloco do dia - Ter 1-->
+        <LinearLayout
+            android:id="@+id/day3Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/unselec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day3TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Ter"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day3NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+             <!-- Bloco do dia - Qua 1-->
+        <LinearLayout
+            android:id="@+id/day4Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/unselec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day4TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Qua"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day4NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Bloco do dia - Qui 1-->
+        <LinearLayout
+            android:id="@+id/day5Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/unselec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day5TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Qui"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day5NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Bloco do dia - Sex 1-->
+        <LinearLayout
+            android:id="@+id/day6Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/selec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day6TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sex"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day6NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Bloco do dia - Sáb 1-->
+        <LinearLayout
+            android:id="@+id/day7Layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/selec_day"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Dia da semana 2-->
+            <TextView
+                android:id="@+id/day7TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sáb"
+                android:textColor="@color/Preto_Textos"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Número do dia 3-->
+            <TextView
+                android:id="@+id/day7NumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:text="Dia"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
