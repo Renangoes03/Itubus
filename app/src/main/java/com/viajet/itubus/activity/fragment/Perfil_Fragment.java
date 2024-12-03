@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.AcessibilidadeActivity;
 import com.viajet.itubus.activity.activity.BackgroundActivity;
 import com.viajet.itubus.activity.activity.EditarPerfilActivity;
 import com.viajet.itubus.activity.activity.HistoricoActivity;
@@ -57,6 +58,7 @@ public class Perfil_Fragment extends Fragment {
     private Button button_notificacao;
     private Button button_recarga;
     private Button button_historico;
+    private Button button_acessibilidade;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -191,6 +193,7 @@ private void configurarFotoPerfilFundo() {
        button_notificacao = view.findViewById(R.id.button_notificacao);
        button_recarga = view.findViewById(R.id.button_recarga);
        button_historico = view.findViewById(R.id.button_historico);
+       button_acessibilidade = view.findViewById(R.id.button_acessibilidade);
     }
     /**
  * Configura a foto do perfil do usuário, se disponível.
@@ -266,6 +269,10 @@ private void configurarFotoPerfilFundo() {
             @Override
             public void onClick(View v) {abrirHistorico();}
         });
+          button_acessibilidade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {abrirAcessibilidade();}
+        });
     }
 
     /**
@@ -306,6 +313,12 @@ private void configurarFotoPerfilFundo() {
     private void abrirHistorico() {
         Toast.makeText(getContext(), "Histórico", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), HistoricoActivity.class);
+        startActivity(intent);
+    }
+
+    private void abrirAcessibilidade() {
+        Toast.makeText(getContext(), "Acessibilidade", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), AcessibilidadeActivity.class);
         startActivity(intent);
     }
 }

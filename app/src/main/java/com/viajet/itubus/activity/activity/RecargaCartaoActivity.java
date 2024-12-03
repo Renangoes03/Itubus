@@ -73,56 +73,54 @@ public class RecargaCartaoActivity extends AppCompatActivity {
     }
 
     private void configurarListeners() {
-        etQuantidadeViagem.addTextChangedListener(new android.text.TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    etValorRecarga.addTextChangedListener(new android.text.TextWatcher() {
+    private String current = "";
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isUpdatingQuantidadeViagem) return;
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                isUpdatingValorRecarga = true;
-                try {
-                    int quantidade = Integer.parseInt(s.toString());
-                    double valorTotal = quantidade * PRECO_POR_VIAGEM;
-                    etValorRecarga.setText(String.format("R$ %.2f", valorTotal));
-                    btnRecarregar.setText(String.format("Recarregar R$%.2f", valorTotal));
-                } catch (NumberFormatException e) {
-                    etValorRecarga.setText("");
-                }
-                isUpdatingValorRecarga = false;
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (!s.toString().equals(current)) {
+            etValorRecarga.removeTextChangedListener(this);
+
+            String cleanString = s.toString().replaceAll("[R$,.\\s]", "");
+
+            try {
+                double parsed = Double.parseDouble(cleanString) / 100.0;
+                current = String.format("R$ %.2f", parsed);
+                etValorRecarga.setText(current);
+                etValorRecarga.setSelection(current.length());
+            } catch (NumberFormatException e) {
+                current = "";
+                etValorRecarga.setText("");
             }
 
-            @Override
-            public void afterTextChanged(android.text.Editable s) {}
-        });
+            etValorRecarga.addTextChangedListener(this);
+        }
 
-        etValorRecarga.addTextChangedListener(new android.text.TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isUpdatingValorRecarga) return;
-
-                isUpdatingQuantidadeViagem = true;
-                try {
-                    double valor = Double.parseDouble(s.toString().replace("R$", "").replace(",", ".").trim());
-                    int quantidade = (int) Math.floor(valor / PRECO_POR_VIAGEM);
-                    etQuantidadeViagem.setText(String.valueOf(quantidade));
-                    btnRecarregar.setText(String.format("Recarregar R$%.2f", valor));
-                } catch (NumberFormatException e) {
-                    etQuantidadeViagem.setText("");
-                }
-                isUpdatingQuantidadeViagem = false;
+        if (!isUpdatingValorRecarga) {
+            isUpdatingQuantidadeViagem = true;
+            try {
+                double valor = Double.parseDouble(current.replace("R$", "").replace(",", ".").trim());
+                int quantidade = (int) Math.floor(valor / PRECO_POR_VIAGEM);
+                etQuantidadeViagem.setText(String.valueOf(quantidade));
+                btnRecarregar.setText(String.format("Recarregar R$%.2f", valor));
+            } catch (NumberFormatException e) {
+                etQuantidadeViagem.setText("");
             }
-
-            @Override
-            public void afterTextChanged(android.text.Editable s) {}
-        });
-
-        btnRecarregar.setOnClickListener(v -> realizarRecarga());
+            isUpdatingQuantidadeViagem = false;
+        }
     }
+
+    @Override
+    public void afterTextChanged(android.text.Editable s) {}
+});
+
+
+    btnRecarregar.setOnClickListener(v -> realizarRecarga());
+}
+
 
     private void carregarSaldoAtual() {
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();

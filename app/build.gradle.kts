@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.dataconnect)
     implementation(libs.datastore.core.android)
+    implementation(libs.recyclerview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -108,6 +109,8 @@ dependencies {
 
     //implementation ("androidx.activity:activity-ktx:1.8.0")
     implementation ("androidx.cardview:cardview:1.0.0")
+
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
 }
 

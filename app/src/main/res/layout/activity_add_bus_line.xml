@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Linha"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Origem"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Destino"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Preço"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#2196F3"
+        android:text="Salvar" />
+</LinearLayout>

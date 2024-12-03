@@ -8,8 +8,6 @@
     android:padding="16dp"
     tools:context=".activity.activity.QRCodeActivity">
 
-
-
     <LinearLayout
         android:id="@+id/containerImagens"
         android:layout_width="200dp"
