@@ -1,5 +1,6 @@
 package com.viajet.itubus.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.viajet.itubus.R;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,9 +74,54 @@ public class Configuracao_Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_configuracao, container, false);
+        View view = inflater.inflate(R.layout.fragment_configuracao, container, false);
+
+        // Obter referência ao botão
+        Button deleteAccountButton = view.findViewById(R.id.button_delete_account);
+
+        // Configurar listener para exclusão de conta
+        deleteAccountButton.setOnClickListener(v -> deleteUserAccount());
+
+        return view;
+    }
+
+     private void deleteUserAccount() {
+        // Obter o ID do usuário logado
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if (userId == null) {
+            Toast.makeText(getContext(), "Erro: Usuário não autenticado.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Referência ao nó "usuarios" no Firebase
+        DatabaseReference usuariosRef = FirebaseDatabase.getInstance().getReference("usuarios");
+
+        // Remover o usuário pelo ID
+        usuariosRef.child(userId).removeValue()
+            .addOnSuccessListener(aVoid -> {
+                // Excluir dados no Firebase Authentication
+                FirebaseAuth.getInstance().getCurrentUser().delete()
+                    .addOnSuccessListener(unused -> {
+                        // Deslogar o usuário
+                        FirebaseAuth.getInstance().signOut();
+
+                        // Mostrar mensagem de sucesso
+                        Toast.makeText(getContext(), "Conta excluída com sucesso!", Toast.LENGTH_SHORT).show();
+
+                        // Redirecionar para a tela de login
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Remove o histórico
+                        startActivity(intent);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Erro ao excluir conta do Firebase Auth: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+            })
+            .addOnFailureListener(e -> {
+                Toast.makeText(getContext(), "Erro ao excluir conta do banco de dados: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
     }
 }
