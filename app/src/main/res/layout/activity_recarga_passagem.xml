@@ -10,11 +10,22 @@
 
     <include layout="@layout/toolbar"/>
 
+    <!-- Valor da Recarga -->
+
+    <!-- Campo EditText para Valor Recarga -->
+
+    <!-- Viagem Disponível -->
+
+    <!-- Campo EditText para Quantidade de Viagem -->
+
+    <!-- Botão Recarregar -->
+
+    <!-- Container de Imagens -->
     <Button
         android:id="@+id/btn_recarregar"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#007BFF"
         android:text="Recarregar"
         android:textColor="#FFFFFF"
@@ -28,60 +39,69 @@
         android:id="@+id/et_valor_recarga"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_caixa_texto"
         android:hint="R$ 50,00"
-        android:textColorHint="@color/gray"
         android:inputType="numberDecimal"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_valor_recarga" />
 
     <TextView
-        android:id="@+id/tv_viagem_disponivel"
+        android:id="@+id/tv_valor_recarga"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="Viagem disponível"
-        android:textColor="@color/black"
+        android:layout_marginTop="224dp"
+        android:text="Valor da Recarga"
+        android:textColor="#000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_valor_recarga" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_quantidade_viagem"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/background_caixa_texto"
         android:hint="Quantidade: 10"
-        android:textColorHint="@color/gray"
         android:inputType="number"
-         android:textColor="@color/black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_viagem_disponivel" />
 
     <TextView
-        android:id="@+id/tv_valor_recarga"
+        android:id="@+id/tv_viagem_disponivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Valor da Recarga"
-        android:textColor="#000"
+        android:text="Viagem disponível"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/et_valor_recarga" />
 
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/containerImagens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_recarregar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

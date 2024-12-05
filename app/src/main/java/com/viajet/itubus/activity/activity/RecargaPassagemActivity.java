@@ -10,15 +10,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.viajet.itubus.R;
-
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -68,21 +65,24 @@ public class RecargaPassagemActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
-        etValorRecarga = findViewById(R.id.etValorRecarga);
-        etQuantidadeViagem = findViewById(R.id.etQuantidadeViagem);
-        btnRecarregar = findViewById(R.id.btnRecarregar);
+        etValorRecarga = findViewById(R.id.et_valor_recarga);
+        etQuantidadeViagem = findViewById(R.id.et_quantidade_viagem);
+        btnRecarregar = findViewById(R.id.btn_recarregar);
         containerImagens = findViewById(R.id.containerImagens);
     }
 
     private void configListeners() {
+        // Listener para o campo de valor da recarga
         etValorRecarga.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (isUpdatingValorRecarga) return;
+
+                // Limpa as imagens de QR code ao alterar o campo de valor
+                containerImagens.removeAllViews();
 
                 isUpdatingQuantidadeViagem = true;
                 if (!s.toString().isEmpty()) {
@@ -100,26 +100,27 @@ public class RecargaPassagemActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(android.text.Editable s) {
-            }
+            public void afterTextChanged(android.text.Editable s) {}
         });
 
+        // Listener para o campo de quantidade de viagens
         etQuantidadeViagem.addTextChangedListener(new android.text.TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (isUpdatingQuantidadeViagem) return;
+
+                // Limpa as imagens de QR code ao alterar o campo de quantidade
+                containerImagens.removeAllViews();
 
                 isUpdatingValorRecarga = true;
                 if (!s.toString().isEmpty()) {
                     try {
                         int quantidade = Integer.parseInt(s.toString());
                         double valor = quantidade * PRECO_POR_VIAGEM;
-                        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-                        etValorRecarga.setText(currencyFormat.format(valor));
+                        etValorRecarga.setText(NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(valor));
                         atualizarImagens(quantidade);
                     } catch (NumberFormatException e) {
                         Toast.makeText(RecargaPassagemActivity.this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
@@ -129,65 +130,38 @@ public class RecargaPassagemActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(android.text.Editable s) {
-            }
+            public void afterTextChanged(android.text.Editable s) {}
         });
 
-        btnRecarregar.setOnClickListener(v -> realizarRecarga());
-    }
-
-    private void realizarRecarga() {
-        String valorRecargaStr = etValorRecarga.getText().toString().replace("R$", "").trim();
-        String quantidadeViagemStr = etQuantidadeViagem.getText().toString();
-
-        try {
-            double valorRecarga = 0;
-            int quantidadeViagem = 0;
-
-            if (!quantidadeViagemStr.isEmpty()) {
-                quantidadeViagem = Integer.parseInt(quantidadeViagemStr);
-                valorRecarga = quantidadeViagem * PRECO_POR_VIAGEM;
+        // Listener para o botão de recarga
+        btnRecarregar.setOnClickListener(v -> {
+            // Obter a quantidade de QR codes a ser exibida
+            String quantidadeText = etQuantidadeViagem.getText().toString();
+            int quantidade = 0;
+            try {
+                quantidade = Integer.parseInt(quantidadeText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(RecargaPassagemActivity.this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
             }
 
-            if (!valorRecargaStr.isEmpty() && quantidadeViagem == 0) {
-                valorRecarga = Double.parseDouble(valorRecargaStr);
-                quantidadeViagem = (int) Math.floor(valorRecarga / PRECO_POR_VIAGEM);
-            }
-
-            if (quantidadeViagem > 0 && valorRecarga >= PRECO_POR_VIAGEM) {
-                Intent intent = new Intent(RecargaPassagemActivity.this, QRCodeActivity.class);
+            if (quantidade > 0) {
+                // Passar a quantidade para a próxima activity
+                Intent intent = new Intent(RecargaPassagemActivity.this, VisualizarQRCodeActivity.class);
+                intent.putExtra("quantidade_qrcodes", quantidade);
                 startActivity(intent);
-
-                Toast.makeText(this, "Recarga efetuada com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Valor insuficiente para recarga.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecargaPassagemActivity.this, "Informe uma quantidade válida", Toast.LENGTH_SHORT).show();
             }
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
+    // Método para atualizar as imagens de QR codes
     private void atualizarImagens(int quantidade) {
         containerImagens.removeAllViews();
-
         for (int i = 0; i < quantidade; i++) {
             ImageView imageView = new ImageView(this);
-            imageView.setImageResource(R.drawable.qrcode);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            ));
-
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-            params.setMargins(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
-            imageView.setLayoutParams(params);
-
+            imageView.setImageResource(R.drawable.qrcode); // Substitua com a imagem do QR code
             containerImagens.addView(imageView);
         }
-    }
-
-    private int dpToPx(int dp) {
-        float density = getResources().getDisplayMetrics().density;
-        return Math.round(dp * density);
     }
 }

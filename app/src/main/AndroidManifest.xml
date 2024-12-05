@@ -17,6 +17,16 @@
         android:theme="@style/Theme.Itubus"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.VisualizarQRCodeActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.RecargaPassagemActivity"/>
+        <activity
+            android:name=".activity.activity.LocalizaoSecondActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.LocalizaoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.AddBusLineActivity"
             android:exported="false" />
         <activity

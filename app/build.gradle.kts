@@ -112,5 +112,9 @@ dependencies {
 
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
+     //OpenStreetMap
+    implementation ("org.osmdroid:osmdroid-android:6.1.12")
+    implementation ("com.google.zxing:core:3.4.1")
+
 }
 

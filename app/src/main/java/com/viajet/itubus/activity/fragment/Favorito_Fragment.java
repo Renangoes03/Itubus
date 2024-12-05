@@ -2,6 +2,7 @@ package com.viajet.itubus.activity.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.viajet.itubus.R;
 import com.viajet.itubus.activity.activity.AddBusLineActivity;
 import com.viajet.itubus.activity.adapter.BusLineAdapter;
@@ -23,7 +32,9 @@ public class Favorito_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private BusLineAdapter busLineAdapter;
     private List<BusLine> busLineList = new ArrayList<>();
-    private Button btnAddBusLine; // Declaração do botão
+    private Button btnAddBusLine;
+    private DatabaseReference busLinesRef; // Referência ao banco de dados
+    private String userId; // ID do usuário autenticado
 
     public Favorito_Fragment() {
         // Required empty public constructor
@@ -49,27 +60,58 @@ public class Favorito_Fragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Inicializando o botão de adicionar linha
-        btnAddBusLine = view.findViewById(R.id.btnAddBusLine); // Referência do botão
+        btnAddBusLine = view.findViewById(R.id.btnAddBusLine);
 
         // Configurando o clique do botão
         btnAddBusLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Abrir a atividade para adicionar nova linha
                 Intent intent = new Intent(getActivity(), AddBusLineActivity.class);
-startActivity(intent);
-
+                startActivity(intent);
             }
         });
 
-        // Dados fictícios para o RecyclerView
-        busLineList.add(new BusLine("Linha 0747", "Centro", "FATEC Itu - Dom", "10,00"));
-        busLineList.add(new BusLine("Linha 1234", "Terminal Rodoviário", "FATEC Itu - Dom", "8,50"));
+        // Obtendo o ID do usuário autenticado
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        } else {
+            Toast.makeText(getContext(), "Usuário não autenticado.", Toast.LENGTH_SHORT).show();
+            return view;
+        }
 
-        // Inicializando o Adapter e atribuindo ao RecyclerView
+        // Inicializando a referência ao banco de dados
+        busLinesRef = FirebaseDatabase.getInstance().getReference("usuarios")
+                .child(userId).child("bus_lines");
+
+        // Configurando o adaptador
         busLineAdapter = new BusLineAdapter(busLineList);
         recyclerView.setAdapter(busLineAdapter);
 
+        // Carregar os dados do Firebase
+        carregarBusLines();
+
         return view;
+    }
+
+    private void carregarBusLines() {
+        busLinesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                busLineList.clear(); // Limpa a lista antes de adicionar novos dados
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    BusLine busLine = dataSnapshot.getValue(BusLine.class);
+                    if (busLine != null) {
+                        busLineList.add(busLine);
+                    }
+                }
+                busLineAdapter.notifyDataSetChanged(); // Atualiza o adaptador
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Erro ao carregar dados: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.viajet.itubus.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.viajet.itubus.R;
+import com.viajet.itubus.activity.activity.LocalizaoActivity;
+import com.viajet.itubus.activity.activity.LocalizaoSecondActivity;
+import com.viajet.itubus.activity.activity.RecargaActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +21,18 @@ import com.viajet.itubus.R;
  * create an instance of this fragment.
  */
 public class Localizacao_Fragment extends Fragment {
+
+    private Button acompanharButton;
+    private Button passagemButton;
+
+    private Button acompanharButton2;
+    private Button passagemButton2;
+
+    private Button acompanharButton3;
+    private Button passagemButton3;
+
+    private Button acompanharButton4;
+    private Button passagemButton4;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +77,94 @@ public class Localizacao_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_localizacao, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_localizacao, container, false);
+
+        acompanharButton = view.findViewById(R.id.acompanhar2);
+        passagemButton = view.findViewById(R.id.passagem2);
+
+        acompanharButton2 = view.findViewById(R.id.acompanhar3);
+        passagemButton2 = view.findViewById(R.id.passagem3);
+
+        acompanharButton3 = view.findViewById(R.id.acompanhar4);
+        passagemButton3 = view.findViewById(R.id.passagem4);
+
+        acompanharButton4 = view.findViewById(R.id.acompanhar);
+        passagemButton4 = view.findViewById(R.id.passagem);
+
+        acompanharButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela do OpenStreetMap
+                Intent i = new Intent(getActivity(), LocalizaoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        passagemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela de recarga
+                Intent i = new Intent(getActivity(), RecargaActivity.class);
+                startActivity(i);
+            }
+        });
+
+        acompanharButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela do OpenStreetMap
+                Intent i = new Intent(getActivity(), LocalizaoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        passagemButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela de recarga
+                Intent i = new Intent(getActivity(), RecargaActivity.class);
+                startActivity(i);
+            }
+        });
+
+        acompanharButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela do OpenStreetMap
+                Intent i = new Intent(getActivity(), LocalizaoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        passagemButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela de recarga
+                Intent i = new Intent(getActivity(), RecargaActivity.class);
+                startActivity(i);
+            }
+        });
+
+        acompanharButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela do OpenStreetMap
+                Intent i = new Intent(getActivity(), LocalizaoSecondActivity.class);
+                startActivity(i);
+            }
+        });
+
+        passagemButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Abre a tela de recarga
+                Intent i = new Intent(getActivity(), RecargaActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        return view;
     }
 }
